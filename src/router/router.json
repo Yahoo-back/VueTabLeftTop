@@ -1,0 +1,215 @@
+[
+  {
+    "path": "/dashboard",
+    "icon": "speedometer",
+    "name": "dashboard",
+    "title": "仪表盘",
+    "redirect": "/dashboard/index1",
+    "children": [
+      {
+        "path": "index1",
+        "icon": "speedometer",
+        "title": "仪表盘一",
+        "name": "IndexOne",
+        "component": "dashboard/index1"
+      },
+      {
+        "path": "service8",
+        "icon": "speedometer",
+        "title": "仪表盘二",
+        "name": "service",
+        "component": "dashboard/index"
+      }
+    ]
+  },
+  {
+    "path": "/access",
+    "icon": "key",
+    "name": "access",
+    "title": "权限管理",
+    "redirect": "/access/index",
+    "children": [
+      {
+        "path": "access",
+        "icon": "key",
+        "title": "权限管理",
+        "name": "accessIndex",
+        "component": "access/access"
+      }
+    ]
+  },
+  {
+    "path": "/components",
+    "icon": "bookmark",
+    "name": "components",
+    "title": "组件",
+    "redirect": "/components/index",
+    "children": [
+      {
+        "path": "buttons",
+        "icon": "social-youtube",
+        "title": "buttons按钮",
+        "name": "buttons",
+        "component": "components/Buttons"
+      },
+      {
+        "path": "alert",
+        "icon": "alert",
+        "title": "Alert警告提示",
+        "name": "Alert",
+        "component": "components/Alert"
+      },
+      {
+        "path": "card",
+        "name": "Card卡片",
+        "title": "Card卡片",
+        "icon": "ios-browsers-outline",
+        "component": "components/Card"
+      },
+      {
+        "path": "datepicker",
+        "title": "DatePicker日期",
+        "name": "DatePicker",
+        "icon": "ios-calendar-outline",
+        "component": "components/DatePicker"
+      },
+      {
+        "path": "form",
+        "title": "Form表单",
+        "name": "Form",
+        "icon": "ios-list-outline",
+        "component": "components/Form"
+      },
+      {
+        "path": "modal",
+        "title": "Modal对话框",
+        "name": "Modal",
+        "icon": "ios-chatbubble-outline",
+        "component": "components/Modal"
+      },
+      {
+        "path": "select",
+        "title": "Select选择器",
+        "name": "Select",
+        "icon": "ios-arrow-down",
+        "component": "components/Select"
+      },
+      {
+        "path": "spin",
+        "title": "Spin加载中",
+        "name": "Spin",
+        "icon": "load-d ",
+        "component": "components/Spin"
+      },
+      {
+        "path": "steps",
+        "title": "Steps步骤条",
+        "name": "Steps",
+        "icon": "ios-checkmark-outline",
+        "component": "components/Steps"
+      },
+      {
+        "path": "timeline",
+        "title": "Timeline时间轴",
+        "name": "Timeline",
+        "icon": "android-more-vertical",
+        "component": "components/Timeline"
+      },
+      {
+        "path": "transfer",
+        "title": "Transfer穿梭框",
+        "name": "Transfer",
+        "icon": "ios-pause-outline",
+        "component": "components/Transfer"
+      },
+      {
+        "path": "timepicker",
+        "title": "Timepicker时间",
+        "name": "Timepicker",
+        "icon": "ios-clock-outline",
+        "component": "components/Timepicker"
+      },
+      {
+        "path": "file-upload",
+        "icon": "android-upload",
+        "name": "file-upload",
+        "title": "文件上传",
+        "component": "components/file-upload/file-upload"
+      }
+    ]
+  },
+  {
+    "path": "/Table",
+    "icon": "ios-keypad",
+    "name": "tables",
+    "title": "表格",
+    "redirect": "/tables/index",
+    "children": [
+      {
+        "path": "exportTable",
+        "icon": "compose",
+        "title": "导出csv",
+        "name": "exportTable",
+        "component": "tables/exportTable"
+      },
+      {
+        "path": "searchableTable",
+        "title": "可搜索表格",
+        "name": "searchable",
+        "icon": "search",
+        "component": "tables/searchable-table"
+      },
+      {
+        "path": "editableTable",
+        "title": "可编辑表格",
+        "name": "editable-table",
+        "icon": "edit",
+        "component": "tables/editable-table"
+      },
+      {
+        "path": "pageTable",
+        "title": "分页表格",
+        "name": "page-table",
+        "icon": "arrow-right-a",
+        "component": "tables/pageTable"
+      }
+    ]
+  },
+  {
+    "path": "/advanced-router",
+    "icon": "ios-infinite",
+    "name": "advanced-router",
+    "title": "高级路由",
+    "children": [
+      {
+        "path": "mutative-router",
+        "title": "动态路由",
+        "name": "mutative-router",
+        "icon": "link",
+        "component": "advanced-router/mutative-router"
+      },
+      {
+        "path": "argument-page",
+        "title": "带参页面",
+        "name": "argument-page",
+        "icon": "android-send",
+        "component": "advanced-router/argument-page"
+      }
+    ]
+  },
+  {
+    "path": "/error-page",
+    "icon": "android-sad",
+    "title": "错误页面",
+    "name": "errorPage",
+    "children": [
+      {
+        "path": "index",
+        "title": "错误页面",
+        "name": "errorPage_index",
+        "icon": "android-sad",
+        "component": "error-page/error-page"
+      }
+    ]
+  }
+]
