@@ -87,12 +87,10 @@ server {
 ![](readme_static/login.png)
 
 
-### home展示
+### 导航栏
 - 仪表盘
-![](readme_static/main.jpg)
+![](readme_static/menu.png)
 
-### info展示
-- 这是其他页面的展示，各种表单和按钮都可以直接使用。
-![](readme_static/info.jpg)
+
 
 
