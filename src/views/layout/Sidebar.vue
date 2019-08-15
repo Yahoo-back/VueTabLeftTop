@@ -9,7 +9,7 @@
     <Menu v-if="!sidebar" ref="sideMenu" :active-name="$route.path" :theme="menuTheme" :open-names="openedSubmenuArr"
           width="auto" @on-select="changeMenu">
       <template v-for="item in permission_routers"
-                v-if="!item.hidden && item.children.length>1 && item.path.split('/')[1] === menu">
+                v-if="!item.hidden && item.children.length>0 && item.path.split('/')[1] === menu">
         <!--有二级菜单的设置路由-->
         <template v-for="child in item.children">
           <!--设置下面的二级菜单显示-->
@@ -22,14 +22,14 @@
     </Menu>
     <div v-else-if="sidebar" class="shrink">
       <template v-for="(item,index) in permission_routers"
-                v-if="!item.hidden && item.children.length>1 && item.path.split('/')[1] === menu">
+                v-if="!item.hidden && item.children.length>0 && item.path.split('/')[1] === menu">
         <!--只展示选择的那个一级菜单的二级菜单-->
         <!--有二级菜单的展示-->
-        <Dropdown transfer v-if="item.children.length !== 1" placement="right-start" :key="index"
+        <Dropdown transfer v-if="item.children.length !== 0" placement="right-start" :key="index"
                   @on-click="changeMenu">
         </Dropdown>
         <template v-for="(child, i) in item.children">
-          <Dropdown transfer v-if="item.children.length !== 1" placement="right-start" :key="index"
+          <Dropdown transfer v-if="item.children.length !== 0" placement="right-start" :key="index"
                     @on-click="changeMenu">
             <router-link tag='span' :to="item.path+'/'+child.path"
                          style="display: inline-block;height:100%;width:100%">

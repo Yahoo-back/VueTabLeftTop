@@ -1,15 +1,16 @@
+<!--顶部导航-->
 <template>
   <div>
     <!-- 这里显示 index 小于 maxItem 的内容 -->
     <div v-for="(item,index) in currentPathArr" :href="item.path" :key="item.name"
          v-if="!item.hidden && index < maxItem">
       <!--这里设置一个长度大于了多少就下拉显示一级菜单-->
-      <MenuItem :name="item.path.split('/')[1]" v-if="item.children.length>1">
+      <MenuItem :name="item.path.split('/')[1]" v-if="item.children.length>0">
         <Icon :type="item.icon" :size="iconSize" :key="item.path"></Icon>
         {{item.title}}
       </MenuItem>
 
-      <MenuItem :name="item.path.split('/')[1]" v-if="item.children.length<=1">
+      <MenuItem :name="item.path.split('/')[1]" v-if="item.children.length<=0">
         <router-link tag='span' :to="item.path + '/' + item.children[0].path"
                      style="display: inline-block;height:100%;width:100%">
           <Icon :type="item.icon" :size="iconSize" :key="item.path"></Icon>
@@ -26,12 +27,12 @@
         <div v-for="(item,index) in currentPathArr" :href="item.path" :key="item.name"
              v-if="!item.hidden && index >= maxItem">
           <!--无二级菜单-->
-          <MenuItem :name="item.path.split('/')[1]" v-if="item.children.length>1">
+          <MenuItem :name="item.path.split('/')[1]" v-if="item.children.length>0">
             <Icon :type="item.icon" :size="iconSize" :key="item.path" style="width: 20px"/>
             <span class="dropdownItemIcon">{{item.title}}</span>
           </MenuItem>
           <!--有二级菜单-->
-          <MenuItem :name="item.path.split('/')[1]" v-if="item.children.length<=1">
+          <MenuItem :name="item.path.split('/')[1]" v-if="item.children.length<=0">
             <router-link tag='span' :to="item.path + '/' + item.children[0].path"
                          style="display: inline-block;height:100%;width:100%">
               <Icon :type="item.icon" :size="iconSize" :key="item.path" style="width: 20px"/>
@@ -43,7 +44,6 @@
     </Submenu>
   </div>
 </template>
-
 <script>
   export default {
     data() {
@@ -56,6 +56,7 @@
     computed: {
       currentPathArr() {
         return this.$store.state.app.routers;
+        console.log(this.$store.state.app.routers)
       },
     }
   }

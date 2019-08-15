@@ -1,42 +1,47 @@
 <template>
-  <div class="login" @keydown.enter="handleSubmit">
-    <div class="login-con">
-      <Card :bordered="false">
-        <p slot="title">
-          <Icon type="log-in"></Icon>
-          欢迎登录
-        </p>
-        <div class="form-con">
-          <Form ref="loginForm" :model="form" :rules="rules">
-            <FormItem prop="userName">
-              <Input v-model="form.userName" placeholder="请输入用户名">
-              <span slot="prepend">
-                  <Icon :size="16" type="person"></Icon>
-                </span>
-              </Input>
-            </FormItem>
-            <FormItem prop="password">
-              <Input type="password" v-model="form.password" placeholder="请输入密码">
-              <span slot="prepend">
-                  <Icon :size="14" type="locked"></Icon>
-                </span>
-              </Input>
-            </FormItem>
-            <FormItem>
-              <Button @click="handleSubmit" type="primary" long>登录</Button>
-            </FormItem>
-          </Form>
-          <p class="login-tip">密码:123456</p>
-        </div>
-      </Card>
+  <div id="particles">
+    <div class="login" @keydown.enter="handleSubmit">
+      <div class="login-con">
+        <Card :bordered="false">
+          <p slot="title">
+            <Icon type="log-in"></Icon>
+            欢迎登录
+          </p>
+          <div class="form-con">
+            <Form ref="loginForm" :model="form" :rules="rules">
+              <FormItem prop="userName">
+                <Input v-model="form.userName" placeholder="请输入用户名">
+                <span slot="prepend">
+                    <Icon :size="16" type="person"></Icon>
+                  </span>
+                </Input>
+              </FormItem>
+              <FormItem prop="password">
+                <Input type="password" v-model="form.password" placeholder="请输入密码">
+                <span slot="prepend">
+                    <Icon :size="14" type="locked"></Icon>
+                  </span>
+                </Input>
+              </FormItem>
+              <FormItem>
+                <Button @click="handleSubmit" type="primary" long>登录</Button>
+              </FormItem>
+            </Form>
+            <p class="login-tip">密码:123456</p>
+          </div>
+        </Card>
+      </div>
     </div>
   </div>
 </template>
 
-
 <script>
   import Cookies from 'js-cookie';
+  import particles from 'particles.js'
   export default {
+      mounted() {
+      particlesJS.load('particles','../../static/particles.json');
+    },
     data () {
       return {
         form: {
@@ -74,17 +79,30 @@
           }
         });
       }
-    }
+    },
   }
 </script>
 <style lang="less">
+  canvas{
+    display:block;
+    vertical-align:bottom;
+  }
+  #particles{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
   .login {
     width: 100%;
     height: 100%;
-    background-image: url("../../assets/bg1.jpg");
+    // background: #000;
+    // background-image: url("../../assets/bg1.jpg");
     background-size: cover;
     background-position: center;
-    position: relative;
+    position: absolute;
     &-con {
       position: absolute;
       right: 160px;

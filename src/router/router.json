@@ -1,5 +1,21 @@
 [
   {
+    "path": "/home",
+    "icon": "speedometer",
+    "name": "home",
+    "title": "首页",
+    "redirect": "/home/home",
+    "children": [
+      {
+        "path": "home",
+        "icon": "speedometer",
+        "title": "首页",
+        "name": "home index",
+        "component": "home/home"
+      }
+    ]
+  },
+  {
     "path": "/dashboard",
     "icon": "speedometer",
     "name": "dashboard",
@@ -23,17 +39,17 @@
     ]
   },
   {
-    "path": "/access",
+    "path": "/access/access",
     "icon": "key",
     "name": "access",
     "title": "权限管理",
-    "redirect": "/access/index",
+    "redirect": "/access/access",
     "children": [
       {
         "path": "access",
         "icon": "key",
         "title": "权限管理",
-        "name": "accessIndex",
+        "name": "accessAccess",
         "component": "access/access"
       }
     ]
