@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap</title>
+  <!--引入bootstrap样式，这里按照你项目的bootstrap.css路径来添加即可-->
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!--引入jquery.js文件，按照你项目上jquery来即可-->
+  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <!--引入bootstrap.js文件，按照你项目上bootstrap.js文件路径来添加即可-->
+  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    .judge {
+      position: fixed;
+      left: 40%;
+      top: 40%;
+    }
+  </style>
+</head>
+<body>
+<div class="judge">
+  <h2>通过 / 不通过判断</h2>
+  <input value="通过授权" class="btn btn-info" type="button" onclick='window.open("http://www.baidu.com")'/>
+  <HR align=center width=300 color=#987cb9 SIZE=1>
+  <HR style="border: 1px dashed #987cb9" width="80%" color=#987cb9 SIZE=1>
+</div>
+<script>
+  function a(callbackFunction) {
+    alert("这是parent函数a");
+    var m = 1;
+    var n = 3;
+    return callbackFunction(m, n);
+  }
+
+  function b(m, n) {
+    alert("这是回调函数B");
+    return m + n;
+  }
+
+  $(function () {
+    var result = a(b);
+    alert("result = " + result);
+  });
+</script>
+</body>
+</html>
+

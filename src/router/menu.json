@@ -1,0 +1,232 @@
+[
+    {
+      "path": "/home",
+      "icon": "speedometer",
+      "name": "home",
+      "title": "首页",
+      "redirect": "/home/home",
+      "children": [
+        {
+          "path": "home",
+          "icon": "speedometer",
+          "title": "首页",
+          "name": "home index",
+          "component": "home/home"
+        }
+      ]
+    },
+    {
+      "path": "/product",
+      "icon": "speedometer",
+      "name": "product",
+      "title": "商品管理",
+      "redirect": "/product/list",
+      "children": [
+        {
+          "path": "list",
+          "icon": "speedometer",
+          "title": "商品列表",
+          "name": "list",
+          "component": "product/list"
+        },
+        {
+          "path": "visit",
+          "icon": "speedometer",
+          "title": "商品访问管理",
+          "name": "visit",
+          "component": "product/visit"
+        }
+      ]
+    },
+    {
+      "path": "/access/access",
+      "icon": "key",
+      "name": "access",
+      "title": "客户管理",
+      "redirect": "/access/access",
+      "children": [
+        {
+          "path": "access",
+          "icon": "key",
+          "title": "客户列表",
+          "name": "accessAccess",
+          "component": "access/access"
+        }
+      ]
+    },
+    {
+      "path": "/components",
+      "icon": "bookmark",
+      "name": "components",
+      "title": "数据统计",
+      "redirect": "/components/index",
+      "children": [
+        {
+          "path": "buttons",
+          "icon": "social-youtube",
+          "title": "产品访问数据统计",
+          "name": "buttons",
+          "component": "components/Buttons"
+        },
+        {
+          "path": "alert",
+          "icon": "alert",
+          "title": "产品访问统计图",
+          "name": "Alert",
+          "component": "components/Alert"
+        },
+        {
+          "path": "card",
+          "name": "点击来源数据统计",
+          "title": "Card卡片",
+          "icon": "ios-browsers-outline",
+          "component": "components/Card"
+        },
+        {
+          "path": "datepicker",
+          "title": "点击来源统计图",
+          "name": "DatePicker",
+          "icon": "ios-calendar-outline",
+          "component": "components/DatePicker"
+        },
+        {
+          "path": "form",
+          "title": "财务统计",
+          "name": "Form",
+          "icon": "ios-list-outline",
+          "component": "components/Form"
+        },
+        {
+          "path": "modal",
+          "title": "Modal对话框",
+          "name": "Modal",
+          "icon": "ios-chatbubble-outline",
+          "component": "components/Modal"
+        },
+        {
+          "path": "select",
+          "title": "Select选择器",
+          "name": "Select",
+          "icon": "ios-arrow-down",
+          "component": "components/Select"
+        },
+        {
+          "path": "spin",
+          "title": "Spin加载中",
+          "name": "Spin",
+          "icon": "load-d ",
+          "component": "components/Spin"
+        },
+        {
+          "path": "steps",
+          "title": "Steps步骤条",
+          "name": "Steps",
+          "icon": "ios-checkmark-outline",
+          "component": "components/Steps"
+        },
+        {
+          "path": "timeline",
+          "title": "Timeline时间轴",
+          "name": "Timeline",
+          "icon": "android-more-vertical",
+          "component": "components/Timeline"
+        },
+        {
+          "path": "transfer",
+          "title": "Transfer穿梭框",
+          "name": "Transfer",
+          "icon": "ios-pause-outline",
+          "component": "components/Transfer"
+        },
+        {
+          "path": "timepicker",
+          "title": "Timepicker时间",
+          "name": "Timepicker",
+          "icon": "ios-clock-outline",
+          "component": "components/Timepicker"
+        },
+        {
+          "path": "file-upload",
+          "icon": "android-upload",
+          "name": "file-upload",
+          "title": "文件上传",
+          "component": "components/file-upload/file-upload"
+        }
+      ]
+    },
+    {
+      "path": "/Table",
+      "icon": "ios-keypad",
+      "name": "tables",
+      "title": "业务配置",
+      "redirect": "/tables/index",
+      "children": [
+        {
+          "path": "exportTable",
+          "icon": "compose",
+          "title": "配置参数",
+          "name": "exportTable",
+          "component": "tables/exportTable"
+        },
+        {
+          "path": "searchableTable",
+          "title": "可搜索表格",
+          "name": "searchable",
+          "icon": "search",
+          "component": "tables/searchable-table"
+        },
+        {
+          "path": "editableTable",
+          "title": "可编辑表格",
+          "name": "editable-table",
+          "icon": "edit",
+          "component": "tables/editable-table"
+        },
+        {
+          "path": "pageTable",
+          "title": "分页表格",
+          "name": "page-table",
+          "icon": "arrow-right-a",
+          "component": "tables/pageTable"
+        }
+      ]
+    },
+    {
+      "path": "/advanced-router",
+      "icon": "ios-infinite",
+      "name": "advanced-router",
+      "title": "商务管理",
+      "children": [
+        {
+          "path": "mutative-router",
+          "title": "商务合作列表",
+          "name": "mutative-router",
+          "icon": "link",
+          "component": "advanced-router/mutative-router"
+        },
+        {
+          "path": "argument-page",
+          "title": "带参页面",
+          "name": "argument-page",
+          "icon": "android-send",
+          "component": "advanced-router/argument-page"
+        }
+      ]
+    },
+    {
+      "path": "/error-page",
+      "icon": "android-sad",
+      "title": "错误页面",
+      "name": "errorPage",
+      "children": [
+        {
+          "path": "index",
+          "title": "错误页面",
+          "name": "errorPage_index",
+          "icon": "android-sad",
+          "component": "error-page/error-page"
+        }
+      ]
+    }
+  ]
+  

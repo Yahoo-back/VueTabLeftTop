@@ -4,7 +4,7 @@ import Router from 'vue-router'
 const _import = require('./_import_' + process.env.NODE_ENV)
 
 /* layout */
-import Layout from '../views/layout/Layout';
+import Layout from '../view/layout/Layout';
 
 const Login = _import('login/login');
 
@@ -26,7 +26,7 @@ export const constantRouterMap = [
     },
     hidden: true,
     component: resolve => {
-      require(['../views/login/login.vue'], resolve);
+      require(['../view/login/login.vue'], resolve);
     }
   },
   {
@@ -41,8 +41,18 @@ export const constantRouterMap = [
 //默认控件
 const defaultComponent = Layout;
 //路由数据
-export const otherRouterMap = initRouter(require('./router.json'));
+export const otherRouterMap = initRouter(require('./menu.json'));
 
+//商品详情
+export const routerInfo = [
+  {
+    path: '/product/list/',
+    component: Layout,
+    name: 'home',
+    hidden: true,
+    children: [{path: 'productInfo', title: 'productInfo', name: 'productInfo', component: _import('product/productInfo')}]
+  },
+];
 /**
  * 初始化路由
  * @param router 路由文件，是一个数组
@@ -75,7 +85,9 @@ export default new Router({
   scrollBehavior: () => ({y: 0}),
   routes: [
     ...constantRouterMap,
-    ...otherRouterMap]
+    ...otherRouterMap,
+    ...routerInfo
+  ]
 })
 
 
