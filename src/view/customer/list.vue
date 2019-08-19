@@ -53,14 +53,14 @@
           border
           style="width: 100%; align: center">
           <el-table-column
-            fixed
+            fixed="left"
             label="序号"
             type="index"
 						align="center"
             width="80">
           </el-table-column>
           <el-table-column
-            fixed
+            fixed="left"
             prop="name"
             sortable
 						align="center"
@@ -123,7 +123,7 @@
 						align="center"
             width="150">
             <template slot-scope="scope">
-              <el-button @click="handleView" type="text" size="small">查看</el-button>
+              <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
               <el-button @click="dialogVisibleNo = true" type="text" size="small">禁用</el-button>
               <el-dialog
                 title="提示"
@@ -246,8 +246,8 @@ import * as table from './data/table';
 				this.historyData = this.initialProduct;
         this.historyData = this.search(this.historyData, {name: this.searchProductName});
       },
-      handleView() {
-        this.$router.push({ path:'/customer/list/customerInfo'  })
+      handleView(row) {
+        this.$router.push({ path:'/customer/list/customerInfo?id='+row.id  })
       }
     },
     created(){

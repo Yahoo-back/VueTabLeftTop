@@ -10,17 +10,16 @@
 		<Card>
 			<p slot="title">
         <Icon type="help-buoy"></Icon>
-        配置参数
+        角色列表
       </p>
       <Row>
         <div class="demo-input-suffix">
-          条件名称：
+          角色ID：
 				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
-          值1：
+          角色名称：
 				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
-					值2：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
-        </div>
+					<el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
+				</div>
       </Row>
       <div style="margin-top: 20px">
         <el-table
@@ -39,25 +38,13 @@
             prop="name"
             sortable
 						align="center"
-            label="条件名称">
+            label="角色ID">
           </el-table-column>
 					<el-table-column
             prop="create_time"
-            label="值1"
+            label="角色名称"
             sortable
 						align="center">
-          </el-table-column>
-          <el-table-column
-            prop="classify"
-            sortable
-						align="center"
-            label="值2">
-          </el-table-column>
-          <el-table-column
-            prop="排序"
-            sortable
-						align="center"
-            label="姓名">
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -65,8 +52,7 @@
             sortable
 						align="center">
             <template slot-scope="scope">
-              <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
-              <el-button  @click="handleView(scope.row)" type="text" size="small">编辑</el-button>
+              <el-button type="text" size="small">分配</el-button>
             </template>
           </el-table-column>
         </el-table>

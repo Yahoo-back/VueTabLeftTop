@@ -60,12 +60,61 @@ export const routerInfo = [
     hidden: true,
     children: [{path: 'productInfo', title: 'productInfo', name: 'productInfo', component: _import('product/productInfo')}]
   },
+  // 客户详情
   {
     path: '/customer/list/',
     component: Layout,
     name: 'customer',
     hidden: true,
     children: [{path: 'customerInfo', title: 'customerInfo', name: 'customerInfo', component: _import('customer/customerInfo')}]
+  },
+  //业务配置
+  {
+    path: '/serviceConfiguration/list/',
+    component: Layout,
+    name: 'serviceConfiguration',
+    hidden: true,
+    children: [{path: 'serviceInfo', title: 'serviceInfo', name: 'serviceInfo', component: _import('serviceConfiguration/serviceInfo')}]
+  },
+  //人员查看
+  {
+    path: '/rightManage/people/',
+    component: Layout,
+    name: 'rightManage',
+    hidden: true,
+    children: [{path: 'peopleInfo', title: 'peopleInfo', name: 'peopleInfo', component: _import('rightManage/peopleInfo')}]
+  },
+  //角色查看
+  {
+    path: '/rightManage/role/',
+    component: Layout,
+    name: 'rightManage',
+    hidden: true,
+    children: [{path: 'roleInfo', title: 'roleInfo', name: 'roleInfo', component: _import('rightManage/roleInfo')}]
+  },
+  //分配岗位
+  {
+    path: '/rightManage/people/',
+    component: Layout,
+    name: 'rightManage',
+    hidden: true,
+    children: [{path: 'distributionPosts', title: 'distributionPosts', name: 'distributionPosts', component: _import('rightManage/distributionPosts')}]
+  },
+  //渠道注册
+  {
+    path: '/qudao/qudaoRegister/',
+    component: Layout,
+    name: 'qudao',
+    hidden: true,
+    children: [{path: 'qdRegisterInfo', title: 'qdRegisterInfo', name: 'qdRegisterInfo', component: _import('qudao/qdRegisterInfo')}]
+  },
+   //渠道缩量
+   {
+    path: '/qudao/qudaoSL/',
+    component: Layout,
+    name: 'qudao',
+    hidden: true,
+    children: [{path: 'qdSLInfo', title: 'qdSLInfo', name: 'qdSLInfo', component: _import('qudao/qdSLInfo')}]
   },
 ];
 /**

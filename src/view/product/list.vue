@@ -46,19 +46,20 @@
         </div>
       </Row>
       <div style="margin-top: 20px">
+        <!-- <Table :columns="productColumns" :data="shoppingData" style="width: 100%;"></Table> -->
         <el-table
           :data="historyData"
           border
           style="width: 100%">
           <el-table-column
-            fixed
+            fixed="left"
             align="center"
             label="序号"
             type="index"
             width="80">
           </el-table-column>
           <el-table-column
-            fixed
+            fixed="left"
             prop="name"
             sortable
             align="center"
@@ -128,7 +129,7 @@
             align="center"
             width="320">
             <template slot-scope="scope">
-              <el-button @click="handleView" type="text" size="small">查看</el-button>
+              <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
               <el-button @click="handleView" type="text" size="small">编辑</el-button>
               <el-button @click="dialogVisibleSale = true" type="text" size="small">上架</el-button>
               <el-dialog
@@ -205,6 +206,71 @@ import * as table from './data/table';
   export default {
       data () {
         return {
+          productColumns: [
+            {
+              type: 'index',
+              title: '序号',
+              width: 60
+            },
+            {
+              title: '购物单号',
+              key: 'shopping_id',
+              align: 'center'
+            },
+            {
+              title: '购买物品名称',
+              key: 'name',
+              align: 'center'
+            },
+            {
+              title: '购买时间',
+              key: 'time'
+            },
+            {
+              title: '查看详情',
+              key: 'show_more',
+              align: 'center',
+              render: (h, params) => {
+                return h('Button', { 
+                  props: {
+                    type: 'text',
+                    size: 'small'
+                  },
+                  on: {
+                    click: () => {
+                      let query = {shopping_id: params.row.shopping_id};
+                      this.$router.push({
+                        name: 'shopping',
+                        query: query
+                      });
+                    }
+                  }
+                }, '了解详情');
+              }
+            }
+          ],
+          shoppingData: [
+                {
+                    shopping_id: 100001,
+                    name: '《vue.js实战》',
+                    time: '2017年11月12日'
+                },
+                {
+                    shopping_id: 100002,
+                    name: '面包',
+                    time: '2017年11月5日'
+                },
+                {
+                    shopping_id: 100003,
+                    name: '咖啡',
+                    time: '2017年11月8日'
+                },
+                {
+                    shopping_id: 100004,
+                    name: '超级豪华土豪金牙签',
+                    time: '2017年11月9日'
+                }
+            ],
           dialogVisibleSale: false,
           dialogVisibleUp: false,
           dialogVisibleDown: false,
@@ -234,7 +300,7 @@ import * as table from './data/table';
           // 初始化信息总条数
           dataCount:0,
           // 每页显示多少条
-          pageSize:10,
+          pageSize:5,
         }
     },
     methods:{
@@ -270,8 +336,8 @@ import * as table from './data/table';
 				this.historyData = this.initialProduct;
         this.historyData = this.search(this.historyData, {name: this.searchProductName});
       },
-      handleView() {
-        this.$router.push({ path:'/product/list/productInfo'  })
+      handleView(row) {
+        this.$router.push({ path:'/product/list/productInfo?id='+row.id  })
       }
     },
     created(){

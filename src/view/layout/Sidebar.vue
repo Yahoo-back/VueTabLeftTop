@@ -4,7 +4,7 @@
       <!--展开时左侧上面的图片-->
       <h2 class="leftTitle" @click="herfchange" v-show="!sidebar">后台管理系统</h2>
       <!--菜单收起时左侧显示的图片-->
-      <a @click="herfchange" v-show="sidebar"><img style="width: 28px; height: 28px" src="../../assets/logo.png"/></a>
+      <a @click="herfchange" v-show="sidebar"><img style="width: 26px; height: 26px" src="../../assets/logo.png"/></a>
     </div>
     <Menu v-if="!sidebar" ref="sideMenu" :active-name="$route.path" :theme="menuTheme" :open-names="openedSubmenuArr"
           width="auto" @on-select="changeMenu">
