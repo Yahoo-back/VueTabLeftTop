@@ -1,19 +1,28 @@
 <style lang="less">
     @import '../../styles/common.less';
-    @import './components/table.less';
+    // @import './components/table.less';
+    .main .single-page-con {
+			background: #fff;
+		}
 </style>
 <template>
   <div id="app">
 		<Card>
 			<p slot="title">
         <Icon type="help-buoy"></Icon>
-        商品访问管理
+        客户列表
       </p>
       <Row>
         <div class="demo-input-suffix">
-          商品名称：
+          手机号：
 				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
-          创建时间:
+          姓名：
+				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+					身份证号：
+				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+					银行卡号：
+				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+					注册时间:
           <el-date-picker
             v-model="createTime"
             type="datetimerange"
@@ -22,117 +31,110 @@
             end-placeholder="结束日期"
             align="right">
           </el-date-picker>
+          来源：
+          <Select v-model="status" style="width:100px">
+            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+					 状态：
+          <Select v-model="status" style="width:100px">
+            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+          认证状态：
+          <Select v-model="status" style="width:100px">
+            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>        
           <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
-          <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增商品</el-button>
+          <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增客户</el-button>
         </div>
       </Row>
       <div style="margin-top: 20px">
         <el-table
           :data="historyData"
           border
-          style="width: 100%">
+          style="width: 100%; align: center">
           <el-table-column
             fixed
-            align="center"
             label="序号"
             type="index"
+						align="center"
             width="80">
           </el-table-column>
           <el-table-column
             fixed
             prop="name"
             sortable
-            align="center"
-            label="商品名称"
+						align="center"
+            label="手机号"
             width="150">
+          </el-table-column>
+					<el-table-column
+            prop="create_time"
+            label="注册时间"
+            sortable
+						align="center"
+            width="180">
           </el-table-column>
           <el-table-column
             prop="classify"
             sortable
-            align="center"
-            label="预付款"
+						align="center"
+            label="来源"
             width="150">
           </el-table-column>
           <el-table-column
             prop="link"
             sortable
-            align="center"
-            label="访问次数"
+						align="center"
+            label="姓名"
+            width="240">
+          </el-table-column>
+					<el-table-column
+            prop="link"
+            sortable
+						align="center"
+            label="身份证号"
             width="240">
           </el-table-column>
           <el-table-column
             prop="status"
-            label="状态"
+            label="认证状态"
+						align="center"
             sortable
-            align="center"
             width="120">
           </el-table-column>
-          <el-table-column
-            prop="create_time"
-            label="创建时间"
+					<el-table-column
+            prop="link"
             sortable
-            align="center"
-            width="180">
+						align="center"
+            label="已支付金额"
+            width="240">
+          </el-table-column>
+          <el-table-column
+            prop="sort"
+            label="状态"
+						align="center"
+            sortable
+            width="120">
           </el-table-column>
           <el-table-column
             fixed="right"
             label="操作"
             sortable
-            align="center"
-            width="320">
+						align="center"
+            width="150">
             <template slot-scope="scope">
               <el-button @click="handleView" type="text" size="small">查看</el-button>
-              <el-button @click="handleView" type="text" size="small">编辑</el-button>
-              <el-button @click="dialogVisibleSale = true" type="text" size="small">上架</el-button>
+              <el-button @click="dialogVisibleNo = true" type="text" size="small">禁用</el-button>
               <el-dialog
                 title="提示"
-                :visible.sync="dialogVisibleSale"
+                :visible.sync="dialogVisibleNo"
                 :append-to-body='true'
                 width="30%"
                 :before-close="handleClose">
-                <span>确定要上架该商品吗？</span>
+                <span>确定要禁用该用户吗？</span>
                 <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisibleSale = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisibleSale = false">确 定</el-button>
-                </span>
-              </el-dialog>
-              <el-button @click="dialogVisibleUp = true" type="text" size="small">置顶</el-button>
-              <el-dialog
-                title="提示"
-                :visible.sync="dialogVisibleUp"
-                :append-to-body='true'
-                width="30%"
-                :before-close="handleClose">
-                <span>确定要将该商品置顶吗？</span>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisibleUp = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisibleUp = false">确 定</el-button>
-                </span>
-              </el-dialog>
-              <el-button @click="dialogVisibleDown = true" type="text" size="small">置尾</el-button>
-              <el-dialog
-                title="提示"
-                :visible.sync="dialogVisibleDown"
-                :append-to-body='true'
-                width="30%"
-                :before-close="handleClose">
-                <span>确定要将该商品置尾吗？</span>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisibleDown = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisibleDown = false">确 定</el-button>
-                </span>
-              </el-dialog>
-              <el-button @click="dialogVisibleDelete = true" type="text" size="small">删除</el-button>
-               <el-dialog
-                title="提示"
-                :visible.sync="dialogVisibleDelete"
-                :append-to-body='true'
-                width="30%"
-                :before-close="handleClose">
-                <span>确定要将删除该商品吗？</span>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisibleDelete = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisibleDelete = false">确 定</el-button>
+                  <el-button @click="dialogVisibleNo = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleNo = false">确 定</el-button>
                 </span>
               </el-dialog>
             </template>
@@ -141,6 +143,30 @@
       </div>
 			<!-- <Table :columns="historyColumns" :data="historyData" class="table"></Table> -->
 			<Page :total="dataCount" :page-size="pageSize" show-total class="paging" @on-change="changepage"></Page>
+			 <div style="margin-top: 200px">
+         	<p slot="title">
+            <Icon type="help-buoy"></Icon>
+              金额统计
+          </p>
+          <el-table
+            :data="historyData"
+            border
+            style="width: 100%">
+            <el-table-column
+              fixed
+              align="center"
+              prop="name"
+              sortable
+              label="今日支付金额">
+            </el-table-column>
+            <el-table-column
+              prop="create_time"
+              label="总支付金额"
+              align="center"
+              sortable>
+            </el-table-column>
+          </el-table>
+      </div>
 		</Card>
   </div>
 </template>
@@ -153,20 +179,12 @@
 		margin-top: 30px;
 	}
 </style>
-<style lang="less">
-	.main .single-page-con {
-			background: #fff;
-		}
-</style>
 <script>
 import * as table from './data/table';
   export default {
       data () {
         return {
-          dialogVisibleSale: false,
-          dialogVisibleUp: false,
-          dialogVisibleDown: false,
-          dialogVisibleDelete: false,
+          dialogVisibleNo: false,
           createTime: '',
           city : [
             {
@@ -229,7 +247,7 @@ import * as table from './data/table';
         this.historyData = this.search(this.historyData, {name: this.searchProductName});
       },
       handleView() {
-        this.$router.push({ path:'/product/list/productInfo'  })
+        this.$router.push({ path:'/customer/list/customerInfo'  })
       }
     },
     created(){

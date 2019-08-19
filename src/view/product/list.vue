@@ -1,6 +1,9 @@
 <style lang="less">
     @import '../../styles/common.less';
-    @import './components/table.less';
+    // @import './components/table.less';
+    .main .single-page-con {
+			background: #fff;
+		}
 </style>
 <template>
   <div id="app">
@@ -12,7 +15,7 @@
       <Row>
         <div class="demo-input-suffix">
           商品名称：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 200px" />
+				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
           创建时间:
           <el-date-picker
             v-model="createTime"
@@ -38,6 +41,8 @@
           <Select v-model="status" style="width:100px">
             <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
+          <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
+          <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增商品</el-button>
         </div>
       </Row>
       <div style="margin-top: 20px">
@@ -47,6 +52,7 @@
           style="width: 100%">
           <el-table-column
             fixed
+            align="center"
             label="序号"
             type="index"
             width="80">
@@ -55,18 +61,21 @@
             fixed
             prop="name"
             sortable
+            align="center"
             label="商品名称"
             width="150">
           </el-table-column>
           <el-table-column
             prop="classify"
             sortable
+            align="center"
             label="分类"
             width="150">
           </el-table-column>
           <el-table-column
             prop="link"
             sortable
+            align="center"
             label="链接"
             width="240">
           </el-table-column>
@@ -74,29 +83,34 @@
             prop="status"
             label="状态"
             sortable
+            align="center"
             width="120">
           </el-table-column>
           <el-table-column
             prop="sort"
             label="排序"
             sortable
+            align="center"
             width="120">
           </el-table-column>
           <el-table-column
             prop="is_hot"
             label="是否首页热门"
             sortable
+            align="center"
             width="150">
           </el-table-column>
           <el-table-column
             prop="hot_sort"
             label="热门排序"
             sortable
+            align="center"
             width="120">
           </el-table-column>
           <el-table-column
             prop="position"
             sortable
+            align="center"
             label="位置"
             width="120">
           </el-table-column>
@@ -104,66 +118,68 @@
             prop="create_time"
             label="创建时间"
             sortable
+            align="center"
             width="180">
           </el-table-column>
           <el-table-column
             fixed="right"
             label="操作"
             sortable
+            align="center"
             width="320">
             <template slot-scope="scope">
               <el-button @click="handleView" type="text" size="small">查看</el-button>
               <el-button @click="handleView" type="text" size="small">编辑</el-button>
-              <el-button @click="dialogVisible = true" type="text" size="small">上架</el-button>
+              <el-button @click="dialogVisibleSale = true" type="text" size="small">上架</el-button>
               <el-dialog
                 title="提示"
-                :visible.sync="dialogVisible"
+                :visible.sync="dialogVisibleSale"
                 :append-to-body='true'
                 width="30%"
                 :before-close="handleClose">
                 <span>确定要上架该商品吗？</span>
                 <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                  <el-button @click="dialogVisibleSale = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleSale = false">确 定</el-button>
                 </span>
               </el-dialog>
-              <el-button @click="dialogVisible = true" type="text" size="small">置顶</el-button>
+              <el-button @click="dialogVisibleUp = true" type="text" size="small">置顶</el-button>
               <el-dialog
                 title="提示"
-                :visible.sync="dialogVisible"
+                :visible.sync="dialogVisibleUp"
                 :append-to-body='true'
                 width="30%"
                 :before-close="handleClose">
                 <span>确定要将该商品置顶吗？</span>
                 <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                  <el-button @click="dialogVisibleUp = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleUp = false">确 定</el-button>
                 </span>
               </el-dialog>
-              <el-button @click="dialogVisible = true" type="text" size="small">置尾</el-button>
+              <el-button @click="dialogVisibleDown = true" type="text" size="small">置尾</el-button>
               <el-dialog
                 title="提示"
-                :visible.sync="dialogVisible"
+                :visible.sync="dialogVisibleDown"
                 :append-to-body='true'
                 width="30%"
                 :before-close="handleClose">
                 <span>确定要将该商品置尾吗？</span>
                 <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                  <el-button @click="dialogVisibleDown = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleDown = false">确 定</el-button>
                 </span>
               </el-dialog>
-              <el-button @click="dialogVisible = true" type="text" size="small">删除</el-button>
+              <el-button @click="dialogVisibleDelete = true" type="text" size="small">删除</el-button>
                <el-dialog
                 title="提示"
-                :visible.sync="dialogVisible"
+                :visible.sync="dialogVisibleDelete"
                 :append-to-body='true'
                 width="30%"
                 :before-close="handleClose">
                 <span>确定要将删除该商品吗？</span>
                 <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                  <el-button @click="dialogVisibleDelete = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleDelete = false">确 定</el-button>
                 </span>
               </el-dialog>
             </template>
@@ -189,7 +205,10 @@ import * as table from './data/table';
   export default {
       data () {
         return {
-          dialogVisible: false,
+          dialogVisibleSale: false,
+          dialogVisibleUp: false,
+          dialogVisibleDown: false,
+          dialogVisibleDelete: false,
           createTime: '',
           city : [
             {
@@ -208,7 +227,7 @@ import * as table from './data/table';
           status: '',
           status1: '',
           searchProductName: '',
-          historyColumns: table.historyColumns,
+          // historyColumns: table.historyColumns,
           historyData: [],
           initialProduct: [],
           ajaxHistoryData:[],

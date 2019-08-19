@@ -37,6 +37,14 @@ export const constantRouterMap = [
     hidden: true,
     children: [{path: 'home', title: 'home', name: 'home_index', component: _import('home/home')}]
   }
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/produce/list',
+  //   name: 'produce_list',
+  //   hidden: true,
+  //   children: [{path: 'produce/list', title: 'produce_list', name: 'produce_list', component: _import('product/list')}]
+  // }
 ];
 //默认控件
 const defaultComponent = Layout;
@@ -48,9 +56,16 @@ export const routerInfo = [
   {
     path: '/product/list/',
     component: Layout,
-    name: 'home',
+    name: 'product',
     hidden: true,
     children: [{path: 'productInfo', title: 'productInfo', name: 'productInfo', component: _import('product/productInfo')}]
+  },
+  {
+    path: '/customer/list/',
+    component: Layout,
+    name: 'customer',
+    hidden: true,
+    children: [{path: 'customerInfo', title: 'customerInfo', name: 'customerInfo', component: _import('customer/customerInfo')}]
   },
 ];
 /**

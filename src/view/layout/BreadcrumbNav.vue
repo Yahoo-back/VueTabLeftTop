@@ -50,7 +50,7 @@
       return {
         iconSize: 14,
         //超过几个列表后显示下拉菜单 (前面有两个隐藏列，所以需要加上2)
-        maxItem: 7
+        maxItem: 11
       }
     },
     computed: {

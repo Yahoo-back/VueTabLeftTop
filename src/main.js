@@ -6,6 +6,8 @@ import router from './router'
 import store from './store'
 import iView from 'iview'
 import particles from 'particles.js'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 // import componnts from '../components.json'
 // import 'iview/src/styles/index.less'
 import NProgress from 'nprogress'; // Progress 进度条
@@ -19,6 +21,7 @@ import 'normalize.css/normalize.css';// normalize.css 样式格式化
 Vue.use(iView);
 Vue.use(ElementUI)
 Vue.use(particles)
+Vue.use(mavonEditor)
 // Vue.use(componnts)
 NProgress.configure({});
 Vue.config.productionTip = false;

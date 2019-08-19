@@ -18,7 +18,7 @@
     {
       "path": "/product",
       "icon": "speedometer",
-      "name": "product",
+      "name": "product_list",
       "title": "商品管理",
       "redirect": "/product/list",
       "children": [
@@ -26,7 +26,7 @@
           "path": "list",
           "icon": "speedometer",
           "title": "商品列表",
-          "name": "list",
+          "name": "product_list",
           "component": "product/list"
         },
         {
@@ -39,18 +39,191 @@
       ]
     },
     {
-      "path": "/access/access",
+      "path": "/customer",
       "icon": "key",
-      "name": "access",
+      "name": "list",
       "title": "客户管理",
-      "redirect": "/access/access",
+      "redirect": "/customer/list",
       "children": [
         {
-          "path": "access",
+          "path": "list",
           "icon": "key",
           "title": "客户列表",
-          "name": "accessAccess",
-          "component": "access/access"
+          "name": "customerList",
+          "component": "customer/list"
+        }
+      ]
+    },
+    {
+      "path": "/data",
+      "icon": "key",
+      "name": "productVisitDataStatistics",
+      "title": "数据统计",
+      "redirect": "/data/productVisitDataStatistics",
+      "children": [
+        {
+          "path": "productVisitDataStatistics",
+          "icon": "key",
+          "title": "产品访问数据统计",
+          "name": "dataProductVisitDataStatistics",
+          "component": "data/productVisitDataStatistics"
+        },
+        {
+          "path": "productVisitStatisticsChart",
+          "icon": "key",
+          "title": "产品访问统计图",
+          "name": "dataProductVisitStatisticsChart",
+          "component": "data/productVisitStatisticsChart"
+        },
+        {
+          "path": "clickResourceDataStatistics",
+          "icon": "key",
+          "title": "点击来源数据统计",
+          "name": "clickResourceDataStatistics",
+          "component": "data/clickResourceDataStatistics"
+        },
+        {
+          "path": "clickResourceStatisticsChart",
+          "icon": "key",
+          "title": "点击来源统计图",
+          "name": "clickResourceStatisticsChart",
+          "component": "data/clickResourceStatisticsChart"
+        },
+        {
+          "path": "financialStatistics",
+          "icon": "key",
+          "title": "财务统计",
+          "name": "financialStatistics",
+          "component": "data/financialStatistics"
+        }
+      ]
+    },
+    {
+      "path": "/serviceConfiguration",
+      "icon": "key",
+      "name": "list",
+      "title": "业务配置",
+      "redirect": "/serviceConfiguration/list",
+      "children": [
+        {
+          "path": "list",
+          "icon": "key",
+          "title": "配置参数",
+          "name": "serviceConfiguration",
+          "component": "serviceConfiguration/list"
+        }
+      ]
+    },
+    {
+      "path": "/businessManage",
+      "icon": "key",
+      "name": "list",
+      "title": "商务管理",
+      "redirect": "/businessManage/list",
+      "children": [
+        {
+          "path": "list",
+          "icon": "key",
+          "title": "商务合作列表",
+          "name": "businessManage",
+          "component": "businessManage/list"
+        }
+      ]
+    },
+    {
+      "path": "/rightManage",
+      "icon": "key",
+      "name": "people",
+      "title": "权限管理",
+      "redirect": "/rightManage/people",
+      "children": [
+        {
+          "path": "people",
+          "icon": "key",
+          "title": "人员管理",
+          "name": "people",
+          "component": "rightManage/people"
+        },
+        {
+          "path": "role",
+          "icon": "key",
+          "title": "角色管理",
+          "name": "role",
+          "component": "rightManage/role"
+        },
+        {
+          "path": "menu",
+          "icon": "key",
+          "title": "菜单项管理",
+          "name": "menu",
+          "component": "rightManage/menu"
+        }
+      ]
+    },
+    {
+      "path": "/qudao",
+      "icon": "key",
+      "name": "people",
+      "title": "渠道管理",
+      "redirect": "/qudao/qudaoRegister",
+      "children": [
+        {
+          "path": "qudaoRegister",
+          "icon": "key",
+          "title": "渠道注册",
+          "name": "qudaoRegister",
+          "component": "qudao/qudaoRegister"
+        },
+        {
+          "path": "qudaoSL",
+          "icon": "key",
+          "title": "渠道缩量",
+          "name": "qudaoSL",
+          "component": "qudao/qudaoSL"
+        }
+      ]
+    },
+    {
+      "path": "/complaint",
+      "icon": "key",
+      "name": "complaint",
+      "title": "客诉模块",
+      "redirect": "/complaint/customer",
+      "children": [
+        {
+          "path": "customer",
+          "icon": "key",
+          "title": "客户列表",
+          "name": "customer",
+          "component": "complaint/customer"
+        },
+        {
+          "path": "myCustomer",
+          "icon": "key",
+          "title": "我的客户列表",
+          "name": "myCustomer",
+          "component": "complaint/myCustomer"
+        },
+        {
+          "path": "reback",
+          "icon": "key",
+          "title": "退款列表",
+          "name": "reback",
+          "component": "complaint/reback"
+        },
+        {
+          "path": "archievementSta",
+          "icon": "key",
+          "title": "客服业绩统计",
+          "name": "archievementSta",
+          "component": "complaint/archievementSta"
+        },
+        {
+          "path": "emailReback",
+          "icon": "key",
+          "title": "邮件退款列表",
+          "name": "emailReback",
+          "component": "complaint/emailReback"
         }
       ]
     },
