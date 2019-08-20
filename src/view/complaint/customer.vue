@@ -6,14 +6,14 @@
 		<Card>
 			<p slot="title">
         <Icon type="help-buoy"></Icon>
-        商品访问管理
+        客户列表
       </p>
       <Row>
         <div class="demo-input-suffix">
           手机号：
 				  <Input v-model="searchMobile" @keyup="getInputValue" @on-change="handleSearchMobile" icon="search" placeholder="请输入商品名称" style="width: 180px" />
           身份证号：
-				  <Input v-model="searchCard" @on-change="handleSearchCard" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+				  <Input v-model="searchCard" @keyup="getInputValue" @on-change="handleSearchCard" icon="search" placeholder="请输入商品名称" style="width: 180px" />
           <el-button v-if="isOk" @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
           <el-button v-if="!isOk" @click="handleView" type="primary" size="small" style="margin-left: 20px">新增商品</el-button>
         </div>
@@ -35,33 +35,68 @@
             prop="name"
             sortable
             align="center"
-            label="商品名称"
+            label="手机号"
             width="150">
           </el-table-column>
           <el-table-column
             prop="classify"
             sortable
             align="center"
-            label="预付款"
+            label="身份证号"
             width="150">
           </el-table-column>
           <el-table-column
             prop="link"
             sortable
             align="center"
-            label="访问次数"
+            label="注册时间"
             width="240">
           </el-table-column>
           <el-table-column
             prop="status"
-            label="状态"
+            label="来源"
             sortable
             align="center"
             width="120">
           </el-table-column>
           <el-table-column
             prop="create_time"
-            label="创建时间"
+            label="姓名"
+            sortable
+            align="center"
+            width="180">
+          </el-table-column>
+           <el-table-column
+            prop="create_time"
+            label="银行卡号"
+            sortable
+            align="center"
+            width="180">
+          </el-table-column>
+           <el-table-column
+            prop="create_time"
+            label="认证状态"
+            sortable
+            align="center"
+            width="180">
+          </el-table-column>
+           <el-table-column
+            prop="create_time"
+            label="已支付金额"
+            sortable
+            align="center"
+            width="180">
+          </el-table-column>
+           <el-table-column
+            prop="create_time"
+            label="状态"
+            sortable
+            align="center"
+            width="180">
+          </el-table-column>
+           <el-table-column
+            prop="create_time"
+            label="备注"
             sortable
             align="center"
             width="180">
@@ -71,60 +106,20 @@
             label="操作"
             sortable
             align="center"
-            width="320">
+            width="160">
             <template slot-scope="scope">
               <el-button @click="handleView" type="text" size="small">查看</el-button>
-              <el-button @click="handleView" type="text" size="small">编辑</el-button>
-              <el-button @click="dialogVisibleSale = true" type="text" size="small">上架</el-button>
+              <el-button @click="dialogVisibleSale = true" type="text" size="small">跟单</el-button>
               <el-dialog
                 title="提示"
                 :visible.sync="dialogVisibleSale"
                 :append-to-body='true'
                 width="30%"
                 :before-close="handleClose">
-                <span>确定要上架该商品吗？</span>
+                <span>确定要跟单吗？</span>
                 <span slot="footer" class="dialog-footer">
                   <el-button @click="dialogVisibleSale = false">取 消</el-button>
                   <el-button type="primary" @click="dialogVisibleSale = false">确 定</el-button>
-                </span>
-              </el-dialog>
-              <el-button @click="dialogVisibleUp = true" type="text" size="small">置顶</el-button>
-              <el-dialog
-                title="提示"
-                :visible.sync="dialogVisibleUp"
-                :append-to-body='true'
-                width="30%"
-                :before-close="handleClose">
-                <span>确定要将该商品置顶吗？</span>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisibleUp = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisibleUp = false">确 定</el-button>
-                </span>
-              </el-dialog>
-              <el-button @click="dialogVisibleDown = true" type="text" size="small">置尾</el-button>
-              <el-dialog
-                title="提示"
-                :visible.sync="dialogVisibleDown"
-                :append-to-body='true'
-                width="30%"
-                :before-close="handleClose">
-                <span>确定要将该商品置尾吗？</span>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisibleDown = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisibleDown = false">确 定</el-button>
-                </span>
-              </el-dialog>
-              <el-button @click="dialogVisibleDelete = true" type="text" size="small">删除</el-button>
-               <el-dialog
-                title="提示"
-                :visible.sync="dialogVisibleDelete"
-                :append-to-body='true'
-                width="30%"
-                :before-close="handleClose">
-                <span>确定要将删除该商品吗？</span>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisibleDelete = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisibleDelete = false">确 定</el-button>
                 </span>
               </el-dialog>
             </template>
@@ -223,12 +218,12 @@ import * as table from './data/table';
         this.historyData = this.ajaxHistoryData.slice(_start,_end);
 			},
 			handleSearchMobile() {
-				this.historyData = this.initialProduct;
-        this.historyData = this.search(this.historyData, {name: this.searchProductName});
+				// this.historyData = this.initialProduct;
+        // this.historyData = this.search(this.historyData, {name: this.searchProductName});
 			},
 			handleSearchCard() {
-				this.historyData = this.initialProduct;
-        this.historyData = this.search(this.historyData, {name: this.searchProductName});
+				// this.historyData = this.initialProduct;
+        // this.historyData = this.search(this.historyData, {name: this.searchProductName});
       },
       handleView() {
         this.$router.push({ path:'/product/list/productInfo'  })
