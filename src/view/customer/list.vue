@@ -15,16 +15,16 @@
       <Row>
         <div class="demo-input-suffix">
           手机号：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+				  <Input v-model="mobile" icon="search" placeholder="请输入商品名称" style="width: 180px" />
           姓名：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+				  <Input v-model="user_name" icon="search" placeholder="请输入商品名称" style="width: 180px" />
 					身份证号：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+				  <Input v-model="id_card" icon="search" placeholder="请输入商品名称" style="width: 180px" />
 					银行卡号：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+				  <Input v-model="bank_card" icon="search" placeholder="请输入商品名称" style="width: 180px" />
 					注册时间:
           <el-date-picker
-            v-model="createTime"
+            v-model="create_time"
             type="datetimerange"
             range-separator="至"
             start-placeholder="开始日期"
@@ -32,16 +32,25 @@
             align="right">
           </el-date-picker>
           来源：
-          <Select v-model="status" style="width:100px">
-            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          <Select v-model="source" style="width:100px">
+            <Option v-for="item in rows" :label="item.source" :value="item.source" :key="item.source">{{ item.source }}</Option>
           </Select>
 					 状态：
           <Select v-model="status" style="width:100px">
-            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            <Option value="">请选择</Option>
+            <Option value="0">正常</Option>
+            <Option value="1">禁用</Option>
+            <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
           </Select>
           认证状态：
           <Select v-model="status" style="width:100px">
-            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            <Option value="">请选择</Option>
+            <Option value="0">未认证</Option>
+            <Option value="1">身份证</Option>
+            <Option value="2">借款信息</Option>
+            <Option value="3">联系人</Option>
+            <Option value="4">银行卡</Option>
+            <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
           </Select>        
           <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
           <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增客户</el-button>
@@ -61,7 +70,7 @@
           </el-table-column>
           <el-table-column
             fixed="left"
-            prop="name"
+            prop="mobile"
             sortable
 						align="center"
             label="手机号"
@@ -75,43 +84,62 @@
             width="180">
           </el-table-column>
           <el-table-column
-            prop="classify"
+            prop="source"
             sortable
 						align="center"
             label="来源"
             width="150">
           </el-table-column>
           <el-table-column
-            prop="link"
+            prop="user_name"
             sortable
 						align="center"
             label="姓名"
             width="240">
           </el-table-column>
 					<el-table-column
-            prop="link"
+            prop="id_card"
             sortable
 						align="center"
             label="身份证号"
             width="240">
           </el-table-column>
           <el-table-column
-            prop="status"
+            prop="bank_card"
+            sortable
+						align="center"
+            label="银行卡号"
+            width="240">
+          </el-table-column>
+          <el-table-column
+            prop="user_auth"
             label="认证状态"
 						align="center"
             sortable
             width="120">
+            <template slot-scope="scope">
+              {{scope.row.user_auth == '活体' ? '身份证' : scope.row.user_auth == '借款信息' ? '借款信息' : scope.row.user_auth == '联系人' ? '联系人' : scope.row.user_auth == '银行卡' ? '银行卡' : '未认证'}}
+            </template>
           </el-table-column>
 					<el-table-column
-            prop="link"
+            prop="pay_amt"
             sortable
 						align="center"
             label="已支付金额"
             width="240">
           </el-table-column>
           <el-table-column
-            prop="sort"
             label="状态"
+						align="center"
+            sortable
+            width="120">
+            <template slot-scope="scope">
+              {{scope.status == 0 ? '正常' : scope.status == 1 ? '禁用' : '未知'}}
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="remark"
+            label="备注"
 						align="center"
             sortable
             width="120">
@@ -149,18 +177,18 @@
               金额统计
           </p>
           <el-table
-            :data="historyData"
+            :data="money"
             border
             style="width: 100%">
             <el-table-column
               fixed
               align="center"
-              prop="name"
+              prop="pay_amt"
               sortable
               label="今日支付金额">
             </el-table-column>
             <el-table-column
-              prop="create_time"
+              prop="pay_time"
               label="总支付金额"
               align="center"
               sortable>
@@ -184,8 +212,24 @@ import * as table from './data/table';
   export default {
       data () {
         return {
+          status: '',
+          mobile: '',
+          create_time: '',
+          source: '',
+          user_name: '',
+          id_card: '',
+          bank_card: '',
+          user_auth: '',
           dialogVisibleNo: false,
           createTime: '',
+          rows: [
+            {
+              source: 'android'
+            },
+            {
+              source: 'ios'
+            }
+          ],
           city : [
             {
               value: 'beijing',
@@ -199,6 +243,12 @@ import * as table from './data/table';
               value: 'shenzhen',
               label: '深圳市'
             },
+          ],
+          money: [
+            {
+              pay_amt: '0.01',
+              pay_time: '0'
+            }
           ],
           status: '',
           status1: '',
@@ -215,7 +265,7 @@ import * as table from './data/table';
     },
     methods:{
 			init () {
-				this.historyData = this.initialProduct =  table.productList;
+        this.historyData = this.initialProduct =  table.customerList;
 				this.status1 = table.status1;
       },
        handleClose(done) {
@@ -228,10 +278,10 @@ import * as table from './data/table';
       // 获取历史记录信息
       handleListApproveHistory(){
         // 保存取到的所有数据
-        this.ajaxHistoryData = table.productList.histories
-        this.dataCount = table.productList.histories.length;
+        this.ajaxHistoryData = table.customerList;
+        this.dataCount = table.customerList.length;
         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-        if(table.productList.histories.length < this.pageSize){
+        if(table.customerList.length < this.pageSize){
           this.historyData = this.ajaxHistoryData;
         }else{
           this.historyData = this.ajaxHistoryData.slice(0,this.pageSize);

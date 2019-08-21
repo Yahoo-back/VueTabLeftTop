@@ -42,13 +42,13 @@
           </el-table-column>
           <el-table-column
             fixed
-            prop="name"
+            prop="product_name"
             sortable
 						align="center"
             label="商品名称">
           </el-table-column>
 					<el-table-column
-            prop="create_time"
+            prop="count"
             label="访问次数"
             sortable
 						align="center">
@@ -76,13 +76,13 @@
           </el-table-column>
           <el-table-column
             fixed
-            prop="name"
+            prop="product_name"
             sortable
 						align="center"
             label="商品名称">
           </el-table-column>
 					<el-table-column
-            prop="create_time"
+            prop="count"
             label="访问次数"
             sortable
 						align="center">
@@ -140,7 +140,7 @@ import * as table from './data/table';
     },
     methods:{
 			init () {
-				this.historyData = this.initialProduct =  table.productList;
+				this.historyData = this.initialProduct =  table.productVisit;
 				this.status1 = table.status1;
       },
        handleClose(done) {
@@ -153,10 +153,10 @@ import * as table from './data/table';
       // 获取历史记录信息
       handleListApproveHistory(){
         // 保存取到的所有数据
-        this.ajaxHistoryData = table.productList.histories
-        this.dataCount = table.productList.histories.length;
+        this.ajaxHistoryData = table.productVisit
+        this.dataCount = table.productVisit.length;
         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-        if(table.productList.histories.length < this.pageSize){
+        if(table.productVisit.length < this.pageSize){
           this.historyData = this.ajaxHistoryData;
         }else{
           this.historyData = this.ajaxHistoryData.slice(0,this.pageSize);

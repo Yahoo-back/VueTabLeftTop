@@ -12,7 +12,7 @@
       <Row>
         <div class="demo-input-suffix">
           商品名称：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+				  <Input v-model="searchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
           创建时间:
           <el-date-picker
             v-model="createTime"
@@ -23,7 +23,7 @@
             align="right">
           </el-date-picker>
           <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
-          <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增商品</el-button>
+          <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增</el-button>
         </div>
       </Row>
       <div style="margin-top: 20px">
@@ -32,14 +32,14 @@
           border
           style="width: 100%">
           <el-table-column
-            fixed
+            fixed="left"
             align="center"
             label="序号"
             type="index"
             width="80">
           </el-table-column>
           <el-table-column
-            fixed
+            fixed="left"
             prop="name"
             sortable
             align="center"
@@ -47,14 +47,14 @@
             width="150">
           </el-table-column>
           <el-table-column
-            prop="classify"
+            prop="money"
             sortable
             align="center"
             label="预付款"
             width="150">
           </el-table-column>
           <el-table-column
-            prop="link"
+            prop="count"
             sortable
             align="center"
             label="访问次数"
@@ -66,6 +66,9 @@
             sortable
             align="center"
             width="120">
+            <template slot-scope="scope">
+              {{scope.row.status == 0 ? '开启' : scope.row.status == 1 ? '关闭' : scope.row.status == 2 ? '失效' : '未知'}}
+            </template>
           </el-table-column>
           <el-table-column
             prop="create_time"
@@ -197,7 +200,7 @@ import * as table from './data/table';
     },
     methods:{
 			init () {
-				this.historyData = this.initialProduct =  table.productList;
+				this.historyData = this.initialProduct =  table.productVisit;
 				this.status1 = table.status1;
       },
        handleClose(done) {
@@ -210,10 +213,10 @@ import * as table from './data/table';
       // 获取历史记录信息
       handleListApproveHistory(){
         // 保存取到的所有数据
-        this.ajaxHistoryData = table.productList.histories
-        this.dataCount = table.productList.histories.length;
+        this.ajaxHistoryData = table.productVisit
+        this.dataCount = table.productVisit.length;
         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-        if(table.productList.histories.length < this.pageSize){
+        if(table.productVisit.length < this.pageSize){
           this.historyData = this.ajaxHistoryData;
         }else{
           this.historyData = this.ajaxHistoryData.slice(0,this.pageSize);
@@ -223,10 +226,6 @@ import * as table from './data/table';
         var _start = ( index - 1 ) * this.pageSize;
         var _end = index * this.pageSize;
         this.historyData = this.ajaxHistoryData.slice(_start,_end);
-			},
-			handleSearchProductName() {
-				this.historyData = this.initialProduct;
-        this.historyData = this.search(this.historyData, {name: this.searchProductName});
       },
       handleView() {
         this.$router.push({ path:'/product/list/productInfo'  })

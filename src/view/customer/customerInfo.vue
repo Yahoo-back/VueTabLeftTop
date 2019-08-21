@@ -10,33 +10,33 @@
 				<el-row>
           <el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="12">
             <el-form-item label="手机号">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.mobile"></el-input>
           	</el-form-item>
           </el-col>
           <el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="12">
             <el-form-item label="注册时间">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.create_time"></el-input>
           	</el-form-item>
           </el-col>
         </el-row>   
 				<el-row>
 					<el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="12">   
 						<el-form-item label="性别">  
-							<el-input v-model="form.name"></el-input>
+							<el-input v-model="form.sex"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row>
 					<el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="12">
 						<el-form-item label="职业">
-							<el-input v-model="form.name"></el-input>
+							<el-input v-model="form.job"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row>
           <el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="12">
             <el-form-item label="芝麻分">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.zhima_score"></el-input>
           	</el-form-item>
           </el-col>
           <el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="12">
@@ -45,13 +45,6 @@
           	</el-form-item>
           </el-col>
         </el-row>  
-				<el-row>
-					<el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="12">
-						<el-form-item label="身份证信息">
-							<el-input v-model="form.name"></el-input>
-						</el-form-item>
-					</el-col>
-				</el-row>
 				<el-row>
           <el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="12">
             <el-form-item label="银行卡号">
@@ -67,6 +60,13 @@
 				<el-row>
 					<el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="12">
 						<el-form-item label="状态">
+							<el-input v-model="form.status"></el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+        <el-row>
+					<el-col :xs="4" :sm="6" :md="8" :lg="8" :xl="12">
+						<el-form-item label="身份证信息">
 							<el-input v-model="form.name"></el-input>
 						</el-form-item>
 					</el-col>

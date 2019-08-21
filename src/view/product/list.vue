@@ -15,10 +15,11 @@
       <Row>
         <div class="demo-input-suffix">
           商品名称：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <!-- <el-input style="width: 180px" placeholder="请输入搜索内容"></el-input> -->
+				  <Input v-model="name" icon="search" placeholder="请输入商品名称" style="width: 180px" />
           创建时间:
           <el-date-picker
-            v-model="createTime"
+            v-model="create_time"
             type="datetimerange"
             range-separator="至"
             start-placeholder="开始日期"
@@ -26,27 +27,38 @@
             align="right">
           </el-date-picker>
           分类：
-          <Select v-model="status" style="width:100px">
-            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          <Select v-model="classify" style="width:100px">
+            <Option v-for="item in rows" :label="item.name" :value="item.name" :key="item.name">{{ item.name }}</Option>
           </Select>
           状态：
           <Select v-model="status" style="width:100px">
-            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            <Option value="">请选择</Option>
+            <Option value="0">下架</Option>
+            <Option value="1">上架</Option>
+            <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
           </Select>
           是否首页热门：
-          <Select v-model="status" style="width:100px">
-            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          <Select v-model="is_hot" style="width:100px">
+            <Option value="">请选择</Option>
+            <Option value="0">否</Option>
+            <Option value="1">是</Option>
+            <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
           </Select>
           位置：
-          <Select v-model="status" style="width:100px">
-            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          <Select v-model="position" style="width:100px">
+            <Option value="">请选择</Option>
+            <Option value="0">默认</Option>
+            <Option value="1">置顶</Option>
+            <Option value="2">置尾</Option>
+            <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
           </Select>
-          <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
+          <el-button @click="handleSearch" type="primary" size="small" style="margin-left: 20px">查询</el-button>
           <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增商品</el-button>
         </div>
       </Row>
       <div style="margin-top: 20px">
         <!-- <Table :columns="productColumns" :data="shoppingData" style="width: 100%;"></Table> -->
+          <!-- :data="historyData" -->
         <el-table
           :data="historyData"
           border
@@ -79,13 +91,15 @@
             align="center"
             label="链接"
             width="240">
-          </el-table-column>
+          </el-table-column>         
           <el-table-column
-            prop="status"
             label="状态"
             sortable
             align="center"
             width="120">
+            <template slot-scope="scope">
+              {{scope.row.status == 0 ? '下架' : scope.row.status == 1 ? '上架' : '未知'}}
+            </template>
           </el-table-column>
           <el-table-column
             prop="sort"
@@ -95,11 +109,13 @@
             width="120">
           </el-table-column>
           <el-table-column
-            prop="is_hot"
             label="是否首页热门"
             sortable
             align="center"
             width="150">
+            <template slot-scope="scope">
+              {{scope.row.is_hot == 0 ? '否' : scope.row.is_hot == 1 ? '是' : '未知'}}
+            </template>
           </el-table-column>
           <el-table-column
             prop="hot_sort"
@@ -109,11 +125,13 @@
             width="120">
           </el-table-column>
           <el-table-column
-            prop="position"
             sortable
             align="center"
             label="位置"
             width="120">
+            <template slot-scope="scope">
+              {{scope.row.position == 1 ? '置顶' : scope.row.position == 2 ? '置尾' : scope.row.position == 0 ? '默认' : '未知'}}
+            </template>
           </el-table-column>
           <el-table-column
             prop="create_time"
@@ -131,47 +149,86 @@
             <template slot-scope="scope">
               <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
               <el-button @click="handleView" type="text" size="small">编辑</el-button>
-              <el-button @click="dialogVisibleSale = true" type="text" size="small">上架</el-button>
-              <el-dialog
-                title="提示"
-                :visible.sync="dialogVisibleSale"
-                :append-to-body='true'
-                width="30%"
-                :before-close="handleClose">
-                <span>确定要上架该商品吗？</span>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisibleSale = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisibleSale = false">确 定</el-button>
-                </span>
-              </el-dialog>
-              <el-button @click="dialogVisibleUp = true" type="text" size="small">置顶</el-button>
+              <el-button @click="dialogVisibleUp = true" type="text" size="small" v-if="scope.row.status == 0">上架</el-button>
               <el-dialog
                 title="提示"
                 :visible.sync="dialogVisibleUp"
                 :append-to-body='true'
                 width="30%"
                 :before-close="handleClose">
-                <span>确定要将该商品置顶吗？</span>
+                <span>确定要将该商品上架吗？</span>
                 <span slot="footer" class="dialog-footer">
                   <el-button @click="dialogVisibleUp = false">取 消</el-button>
                   <el-button type="primary" @click="dialogVisibleUp = false">确 定</el-button>
                 </span>
               </el-dialog>
-              <el-button @click="dialogVisibleDown = true" type="text" size="small">置尾</el-button>
+              <el-button @click="dialogVisibleDown = true" type="text" size="small" v-if="scope.row.status == 1">下架</el-button>
               <el-dialog
                 title="提示"
                 :visible.sync="dialogVisibleDown"
                 :append-to-body='true'
                 width="30%"
                 :before-close="handleClose">
-                <span>确定要将该商品置尾吗？</span>
+                <span>确定要将该商品下架吗？</span>
                 <span slot="footer" class="dialog-footer">
                   <el-button @click="dialogVisibleDown = false">取 消</el-button>
                   <el-button type="primary" @click="dialogVisibleDown = false">确 定</el-button>
                 </span>
               </el-dialog>
+              <el-button @click="dialogVisibleTop = true" type="text" size="small" v-if="scope.row.position == 0">置顶</el-button>
+              <el-dialog
+                title="提示"
+                :visible.sync="dialogVisibleTop"
+                :append-to-body='true'
+                width="30%"
+                :before-close="handleClose">
+                <span>确定要将该商品置顶吗？</span>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisibleTop = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleTop = false">确 定</el-button>
+                </span>
+              </el-dialog>
+              <el-button @click="dialogVisibleCTop = true" type="text" size="small" v-if="scope.row.position == 1">取消置顶</el-button>
+              <el-dialog
+                title="提示"
+                :visible.sync="dialogVisibleCTop"
+                :append-to-body='true'
+                width="30%"
+                :before-close="handleClose">
+                <span>确定要将该商品取消置顶吗？</span>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisibleCTop = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleCTop = false">确 定</el-button>
+                </span>
+              </el-dialog>
+              <el-button @click="dialogVisibleBottom = true" type="text" size="small" v-if="scope.row.position == 0">置尾</el-button>
+              <el-dialog
+                title="提示"
+                :visible.sync="dialogVisibleBottom"
+                :append-to-body='true'
+                width="30%"
+                :before-close="handleClose">
+                <span>确定要将该商品置尾吗？</span>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisibleBottom = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleBottom = false">确 定</el-button>
+                </span>
+              </el-dialog>
+              <el-button @click="dialogVisibleCBottom = true" type="text" size="small" v-if="scope.row.position == 2">取消置尾</el-button>
+              <el-dialog
+                title="提示"
+                :visible.sync="dialogVisibleCBottom"
+                :append-to-body='true'
+                width="30%"
+                :before-close="handleClose">
+                <span>确定要将该商品取消置尾吗？</span>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisibleCBottom = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleCBottom = false">确 定</el-button>
+                </span>
+              </el-dialog>
               <el-button @click="dialogVisibleDelete = true" type="text" size="small">删除</el-button>
-               <el-dialog
+              <el-dialog
                 title="提示"
                 :visible.sync="dialogVisibleDelete"
                 :append-to-body='true'
@@ -249,50 +306,28 @@ import * as table from './data/table';
               }
             }
           ],
-          shoppingData: [
-                {
-                    shopping_id: 100001,
-                    name: '《vue.js实战》',
-                    time: '2017年11月12日'
-                },
-                {
-                    shopping_id: 100002,
-                    name: '面包',
-                    time: '2017年11月5日'
-                },
-                {
-                    shopping_id: 100003,
-                    name: '咖啡',
-                    time: '2017年11月8日'
-                },
-                {
-                    shopping_id: 100004,
-                    name: '超级豪华土豪金牙签',
-                    time: '2017年11月9日'
-                }
-            ],
-          dialogVisibleSale: false,
           dialogVisibleUp: false,
+          dialogVisibleTop: false,
+          dialogVisibleCTop: false,
           dialogVisibleDown: false,
+          dialogVisibleBottom: false,
+          dialogVisibleCBottom: false,
           dialogVisibleDelete: false,
-          createTime: '',
-          city : [
+          create_time: '',
+          rows : [
             {
-              value: 'beijing',
-              label: '北京市'
+              name: '现金贷',
             },
             {
-              value: 'shanghai',
-              label: '上海市'
-            },
-            {
-              value: 'shenzhen',
-              label: '深圳市'
-            },
+              name: '借条',
+            }
           ],
           status: '',
           status1: '',
-          searchProductName: '',
+          classify: '',
+          position: '',
+          is_hot: '',
+          name: '',
           // historyColumns: table.historyColumns,
           historyData: [],
           initialProduct: [],
@@ -300,15 +335,30 @@ import * as table from './data/table';
           // 初始化信息总条数
           dataCount:0,
           // 每页显示多少条
-          pageSize:5,
+          pageSize:10,
         }
     },
     methods:{
 			init () {
 				this.historyData = this.initialProduct =  table.productList;
-				this.status1 = table.status1;
+        this.status1 = table.status1;
+        console.log(this.historyData)
       },
-       handleClose(done) {
+      //查询
+      search (data, argumentObj) {
+        let res = data;
+        let dataClone = data;
+        for (let argu in argumentObj) {
+          if (argumentObj[argu].length > 0) {
+            res = dataClone.filter(d => {
+              return d[argu].indexOf(argumentObj[argu]) > -1;
+            });
+            dataClone = res;
+          }
+        }
+      return res;
+      },
+      handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
             done();
@@ -318,10 +368,10 @@ import * as table from './data/table';
       // 获取历史记录信息
       handleListApproveHistory(){
         // 保存取到的所有数据
-        this.ajaxHistoryData = table.productList.histories
-        this.dataCount = table.productList.histories.length;
+        this.ajaxHistoryData = table.productList
+        this.dataCount = table.productList.length;
         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-        if(table.productList.histories.length < this.pageSize){
+        if(table.productList.length < this.pageSize){
           this.historyData = this.ajaxHistoryData;
         }else{
           this.historyData = this.ajaxHistoryData.slice(0,this.pageSize);
@@ -331,17 +381,21 @@ import * as table from './data/table';
         var _start = ( index - 1 ) * this.pageSize;
         var _end = index * this.pageSize;
         this.historyData = this.ajaxHistoryData.slice(_start,_end);
-			},
-			handleSearchProductName() {
-				this.historyData = this.initialProduct;
-        this.historyData = this.search(this.historyData, {name: this.searchProductName});
+      },
+      //商品名称查询
+			handleSearch() {
+        this.historyData = this.initialProduct;
+        console.log(this.historyData)
+        this.historyData = this.search(this.historyData, {name: this.name, classify: this.classify, is_hot: this.is_hot, position: this.position});
       },
       handleView(row) {
         this.$router.push({ path:'/product/list/productInfo?id='+row.id  })
       }
     },
+    computed: {
+    },
     created(){
       this.handleListApproveHistory();
-    }
+    },
   }
 </script>

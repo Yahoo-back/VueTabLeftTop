@@ -1,18 +1,23 @@
-export const productList = {
-  "histories": [
+export const productVisit = [
 		{
-			"name": "有钱",
-			"classify": "现金贷",
-			"link": "http://www.baidu.com",
-			"status": "下架",
-			"sort": "1",
-			"is_hot": "是",
-			"hot_sort": "1",
-			"position": "默认",
-			"create_time": "2019-8-16 12:26:12"
+			"product_name": "有钱",
+			"count": "12",
 		},
-]
-};
+];
+
+export const sourceList = [
+  {
+    "source": "ios",
+    "uv": "12",
+    "count": "10",
+    "none": "2",
+    "face": "001",
+    "per": "test",
+    "concat": "0022",
+    "bank": "0.12",
+    "pay": "0"
+  },
+];
 
 export const status1 = [
   {
