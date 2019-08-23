@@ -18,6 +18,18 @@ export const sourceList = [
     "pay": "0"
   },
 ];
+export const financial = [
+  {
+    "source": "ios",
+    "cpaPay": "12",
+    "uvPay": "10",
+    "withholdPay": "2",
+    "clickPay": "001",
+    "payPercent": "test",
+    "cpaPercent": "0022",
+    "profit": "0.12",
+  },
+];
 
 export const status1 = [
   {

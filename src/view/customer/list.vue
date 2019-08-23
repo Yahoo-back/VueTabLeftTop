@@ -53,7 +53,7 @@
             <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
           </Select>        
           <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
-          <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增客户</el-button>
+          <!-- <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增客户</el-button> -->
         </div>
       </Row>
       <div style="margin-top: 20px">

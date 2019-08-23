@@ -49,52 +49,46 @@
             label="来源">
           </el-table-column>
           <el-table-column
-            prop="uv"
+            prop="cpaPay"
             sortable
 						align="center"
-            label="点击">
+            label="CPA金额（缩量后注册人数 x 渠道CPA）">
           </el-table-column>
           <el-table-column
-            prop="count"
+            prop="uvPay"
             sortable
 						align="center"
-            label="验证码注册">
+            label="uvCPA金额（缩量后uv人数 x 渠道CPA）">
           </el-table-column>
           <el-table-column
-            prop="none"
+            prop="withholdPay"
             sortable
 						align="center"
-            label="未认证">
+            label="已扣款金额">
           </el-table-column>
           <el-table-column
-            prop="face"
+            prop="clickPay"
             sortable
 						align="center"
-            label="身份证">
+            label="点击CPA金额（点击次数 x 商品CPA）">
           </el-table-column>
           <el-table-column
-            prop="per"
+            prop="payPercent"
             sortable
 						align="center"
-            label="借款信息">
+            label="扣款转化率（已扣款金额 / 应扣款金额）">
           </el-table-column>
           <el-table-column
-            prop="concat"
+            prop="cpaPercent"
             sortable
 						align="center"
-            label="联系人">
+            label="CPA转化率（CPA金额 或 uvCPA金额 / 已扣款金额）">
           </el-table-column>
           <el-table-column
-            prop="bank"
+            prop="profit"
             sortable
 						align="center"
-            label="银行卡">
-          </el-table-column>
-					<el-table-column
-            prop="pay"
-            label="支付"
-            sortable
-						align="center">
+            label="利润（点击CPA金额 + 已扣款金额 - CPA金额）">
           </el-table-column>
         </el-table>
       </div>
@@ -157,7 +151,7 @@ import * as table from './data/table';
     },
     methods:{
 			init () {
-				this.historyData = this.initialProduct =  table.sourceList;
+				this.historyData = this.initialProduct =  table.financial;
 				this.status1 = table.status1;
       },
        handleClose(done) {
@@ -170,10 +164,10 @@ import * as table from './data/table';
       // 获取历史记录信息
       handleListApproveHistory(){
         // 保存取到的所有数据
-        this.ajaxHistoryData = table.sourceList
-        this.dataCount = table.sourceList.length;
+        this.ajaxHistoryData = table.financial
+        this.dataCount = table.financial.length;
         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-        if(table.sourceList.length < this.pageSize){
+        if(table.financial.length < this.pageSize){
           this.historyData = this.ajaxHistoryData;
         }else{
           this.historyData = this.ajaxHistoryData.slice(0,this.pageSize);
