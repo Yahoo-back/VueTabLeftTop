@@ -3,7 +3,11 @@
     // @import './components/table.less';
     .main .single-page-con {
 			background: #fff;
-		}
+    }
+    .el-input__inner {
+      height: 32px;
+      line-height: 32px;
+    }
 </style>
 <template>
   <div id="app">
@@ -15,13 +19,17 @@
       <Row>
         <div class="demo-input-suffix">
           手机号：
-				  <Input v-model="mobile" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入手机号" style="width: 180px" v-model="mobile" suffix-icon="el-icon-search" clearable />
+				  <!-- <Input v-model="mobile" icon="search" placeholder="请输入手机号" style="width: 180px" /> -->
           姓名：
-				  <Input v-model="user_name" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入姓名" style="width: 180px" v-model="user_name" suffix-icon="el-icon-search" clearable />
+				  <!-- <Input v-model="user_name" icon="search" placeholder="请输入姓名" style="width: 180px" /> -->
 					身份证号：
-				  <Input v-model="id_card" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入身份证号" style="width: 180px" v-model="id_card" suffix-icon="el-icon-search" clearable />
+				  <!-- <Input v-model="id_card" icon="search" placeholder="请输入身份证号" style="width: 180px" /> -->
 					银行卡号：
-				  <Input v-model="bank_card" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入银行卡号" style="width: 180px" v-model="bank_card" suffix-icon="el-icon-search" clearable />
+				  <!-- <Input v-model="bank_card" icon="search" placeholder="请输入银行卡号" style="width: 180px" /> -->
 					注册时间:
           <el-date-picker
             v-model="create_time"

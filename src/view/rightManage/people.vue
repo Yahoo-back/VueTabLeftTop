@@ -4,7 +4,11 @@
 		// 产品访问数据统计
 		.main .single-page-con {
 			background: #fff;
-		}
+    }
+    .el-input__inner {
+      height: 32px;
+      line-height: 32px;
+    }
 </style>
 <template>
   <div id="app">
@@ -16,18 +20,22 @@
       <Row>
         <div class="demo-input-suffix">       
 					登录账号：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入联系人名称" style="width: 180px" />
+          <el-input placeholder="请输入登录账号" style="width: 180px" v-model="user_code" suffix-icon="el-icon-search" clearable />
           员工姓名：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入联系人名称" style="width: 180px" />
+          <el-input placeholder="请输入员工姓名" style="width: 180px" v-model="user_name" suffix-icon="el-icon-search" clearable />
 					身份证号：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入手机号" style="width: 180px" />
+          <el-input placeholder="请输入身份证号" style="width: 180px" v-model="identity_card" suffix-icon="el-icon-search" clearable />
           性别：
-          <Select v-model="status" style="width:100px">
-            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          <Select v-model="sex" style="width:100px">
+            <Option value="">请选择</Option>
+            <Option value="0">男</Option>
+            <Option value="1">女</Option>
           </Select>
           状态：
-          <Select v-model="status" style="width:100px">
-            <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option>
+           <Select v-model="status" style="width:100px">
+            <Option value="">请选择</Option>
+            <Option value="2">在职</Option>
+            <Option value="4">离职</Option>
           </Select>
 					<el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增内部员工</el-button>
 					<el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
@@ -46,36 +54,41 @@
           </el-table-column>
           <el-table-column
             fixed
-            prop="name"
+            prop="user_code"
             sortable
 						align="center"
             label="登录账号">
           </el-table-column>
 					<el-table-column
-            prop="create_time"
+            prop="user_name"
             label="员工姓名"
             sortable
 						align="center">
           </el-table-column>
 					<el-table-column
             fixed
-            prop="name"
             sortable
 						align="center"
             label="性别">
+            <template slot-scope="scope">
+              {{scope.row.sex == 0 ? '男' : scope.row.sex == 1 ? '女' : '未知'}}
+            </template>
           </el-table-column>
 					<el-table-column
-            prop="create_time"
+            prop="identity_card"
             label="身份证号"
             sortable
 						align="center">
           </el-table-column>
 					<el-table-column
             fixed
-            prop="name"
+            prop="status"
             sortable
 						align="center"
             label="状态">
+            <template slot-scope="scope">
+              {{scope.row.status == 2 ? '在职' : scope.row.status == 4 ? '离职' : scope.row.status == 0 ? '离职' : '未知'}}
+            </template>
           </el-table-column>
 					 <el-table-column
             fixed="right"
@@ -84,23 +97,36 @@
             align="center"
             width="320">
             <template slot-scope="scope">
-              <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
-              <el-button @click="handleView" type="text" size="small">修改</el-button>
-              <el-button @click="dialogVisibleSale = true" type="text" size="small">离职</el-button>
+              <el-button @click="handleLook(scope.$index, scope.row)" type="text" size="small">查看</el-button>
+              <el-button  @click="handleEdit(scope.$index, scope.row)" type="text" size="small"  v-if="scope.row.status == 2">修改</el-button>
+              <el-button @click="dialogVisibleLeave = true" type="text" size="small" v-if="scope.row.status == 2">离职</el-button>
               <el-dialog
                 title="提示"
-                :visible.sync="dialogVisibleSale"
+                :visible.sync="dialogVisibleLeave"
                 :append-to-body='true'
                 width="30%"
                 :before-close="handleClose">
                 <span>确定要将该员工离职吗？</span>
                 <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisibleSale = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisibleSale = false">确 定</el-button>
+                  <el-button @click="dialogVisibleLeave = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleLeave = false">确 定</el-button>
                 </span>
               </el-dialog>
-              <el-button @click="handleDistribute(scope.row)" type="text" size="small">分配岗位</el-button>
-              <el-button @click="dialogVisibleDown = true" type="text" size="small">重置密码</el-button>
+              <el-button @click="dialogVisibleResume = true" type="text" size="small" v-if="scope.row.status == 0 || scope.row.status == 4">复职</el-button>
+               <el-dialog
+                title="提示"
+                :visible.sync="dialogVisibleResume"
+                :append-to-body='true'
+                width="30%"
+                :before-close="handleClose">
+                <span>确定要将该员工复职吗？</span>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisibleResume = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleResume = false">确 定</el-button>
+                </span>
+              </el-dialog>
+              <el-button @click="handleDistribute(scope.row)" type="text" size="small" v-if="scope.row.status == 2">分配岗位</el-button>
+              <el-button @click="dialogVisibleDown = true" type="text" size="small" v-if="scope.row.status == 2">重置密码</el-button>
               <el-dialog
                 title="提示"
                 :visible.sync="dialogVisibleDown"
@@ -132,6 +158,27 @@
       </div>
 			<!-- <Table :columns="historyColumns" :data="historyData" class="table"></Table> -->
 			<Page :total="dataCount" :page-size="pageSize" show-total class="paging" @on-change="changepage"></Page>
+      <el-dialog :append-to-body='true' :title="dialogTitle" :visible.sync="dialogVisible" @close="onDialogClose()">
+        <el-form ref="dataForm" :model="dataForm" label-width="80px">
+          <el-form-item label="条件名称" prop="dictDesc">
+            <template v-if="dialogTitle=='查看'">{{dataForm.dictDesc}}</template>
+            <el-input v-else v-model="dataForm.dictDesc" placeholder="条件名称"></el-input>
+          </el-form-item>
+          <el-form-item label="值1" prop="itemValue">
+            <template v-if="dialogTitle=='查看'">{{dataForm.itemValue}}</template>
+            <el-input v-else v-model="dataForm.itemValue" placeholder="值1"></el-input>
+          </el-form-item>
+          <el-form-item label="值2" prop="itemKey">
+            <template v-if="dialogTitle=='查看'">{{dataForm.itemKey}}</template>
+            <el-input v-else v-model="dataForm.itemKey" placeholder="值2"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <span @click="onDialogSubmit()" v-if="dialogTitle=='查看'"></span>
+          <el-button type="primary" @click="onDialogSubmit()" v-else>保存</el-button>
+        </div>
+      </el-dialog>
 		</Card>
   </div>
 </template>
@@ -149,6 +196,20 @@ import * as table from './data/table';
   export default {
       data () {
         return {
+          dataForm: {
+            dictDesc: '',
+            itemKey: '',
+            itemValue: '',
+          },
+          dialogVisible: false,
+          dialogTitle: '查看',
+          user_code: '',
+          user_name: '',
+          sex: '',
+          identity_card: '',
+          status: '',
+          dialogVisibleLeave: false,
+          dialogVisibleResume: false,
 					dialogVisibleNo: false,
 					dialogVisibleSale: false,
           dialogVisibleUp: false,
@@ -185,7 +246,7 @@ import * as table from './data/table';
     },
     methods:{
 			init () {
-				this.historyData = this.initialProduct =  table.productList;
+				this.historyData = this.initialProduct =  table.people;
 				this.status1 = table.status1;
       },
        handleClose(done) {
@@ -198,10 +259,10 @@ import * as table from './data/table';
       // 获取历史记录信息
       handleListApproveHistory(){
         // 保存取到的所有数据
-        this.ajaxHistoryData = table.productList.histories
-        this.dataCount = table.productList.histories.length;
+        this.ajaxHistoryData = table.people
+        this.dataCount = table.people.length;
         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-        if(table.productList.histories.length < this.pageSize){
+        if(table.people.length < this.pageSize){
           this.historyData = this.ajaxHistoryData;
         }else{
           this.historyData = this.ajaxHistoryData.slice(0,this.pageSize);
@@ -221,6 +282,36 @@ import * as table from './data/table';
       },
       handleDistribute() {
         this.$router.push({ path:'/rightManage/people/distributionPosts'  })
+      },
+      //点击编辑弹出对话框dialog
+      onDialogClose() {
+        this.dataForm.tempRoleIds = []
+        this.$refs.dataForm.resetFields()
+      },
+      handleLook(index, row) {
+        this.dialogVisible = true
+        this.dialogTitle = '查看'
+        this.dataForm.tempRoleIds = []
+        for (let x of Object.keys(this.dataForm)) {
+          if (
+            x === 'tempRoleIds' &&
+            typeof row.roleList === 'object' &&
+            row.roleList.length > 0
+          ) {
+            for (let item of row.roleList) {
+              this.dataForm.tempRoleIds.push(item.id)
+            }
+          } else {
+            this.dataForm[x] = row[x]
+            }
+        }
+      },
+      handleEdit(index,row) {
+        this.dialogVisible = true
+        this.dialogTitle = '修改'
+      },
+      onDialogSubmit() {
+          
       }
     },
     created(){

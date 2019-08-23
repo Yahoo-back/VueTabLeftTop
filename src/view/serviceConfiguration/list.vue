@@ -3,7 +3,11 @@
     // @import './components/table.less';
     .main .single-page-con {
 			background: #fff;
-		}
+    }
+    .el-input__inner {
+      height: 32px;
+      line-height: 32px;
+    }
 </style>
 <template>
   <div id="app">
@@ -15,11 +19,11 @@
       <Row>
         <div class="demo-input-suffix">
           条件名称：
-				  <Input v-model="searchProductName" icon="search" placeholder="请输入条件名称" style="width: 180px" />
+          <el-input placeholder="请输入条件名称" style="width: 180px" v-model="dictDesc" suffix-icon="el-icon-search" clearable />
           值1：
-				  <Input v-model="searchProductName" icon="search" placeholder="请输入值1" style="width: 180px" />
+          <el-input placeholder="请输入值1" style="width: 180px" v-model="itemValue" suffix-icon="el-icon-search" clearable />
 					值2：
-				  <Input v-model="searchProductName" icon="search" placeholder="请输入值2" style="width: 180px" />
+          <el-input placeholder="请输入值2" style="width: 180px" v-model="itemKey" suffix-icon="el-icon-search" clearable />
           <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
         </div>
       </Row>
@@ -115,6 +119,9 @@ import * as table from './data/table';
       data () {
         return {
           // 编辑对话框
+          dictDesc: '',
+          itemKey: '',
+          itemValue: '',
           dialogVisible: false,
           dialogTitle: '查看',
           dialogVisibleNo: false,

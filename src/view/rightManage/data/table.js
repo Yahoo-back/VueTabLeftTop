@@ -15,6 +15,17 @@ export const productList = {
 ]
 };
 
+export const people = [
+    {
+        "user_code": "user_code",
+        "identity_card": "identity_card",
+        "user_name": "user_name",
+        "sex": "1",
+        "status": "2"
+    },
+
+]
+
 export const status1 = [
     {
         value: 'beijing',

@@ -4,7 +4,11 @@
 		// 产品访问数据统计
 		.main .single-page-con {
 			background: #fff;
-		}
+    }
+    .el-input__inner {
+      height: 32px;
+      line-height: 32px;
+    }
 </style>
 <template>
   <div id="app">
@@ -15,7 +19,11 @@
       </p>
       <Row>
         <div class="demo-input-suffix">
-        	创建时间:
+          联系人名称：
+				  <el-input placeholder="请输入联系人名称" style="width: 180px" v-model="name" suffix-icon="el-icon-search" clearable />
+          联系人手机号：
+				  <el-input placeholder="请输入手机号" style="width: 180px" v-model="mobile" suffix-icon="el-icon-search" clearable />
+          创建时间:
           <el-date-picker
             v-model="createTime"
             type="datetimerange"
@@ -24,10 +32,6 @@
             end-placeholder="结束日期"
             align="right">
           </el-date-picker>
-					联系人名称：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入联系人名称" style="width: 180px" />
-          联系人手机号：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入手机号" style="width: 180px" />
           <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
         </div>
       </Row>
@@ -50,14 +54,14 @@
             label="联系人名称">
           </el-table-column>
 					<el-table-column
-            prop="create_time"
+            prop="mobile"
             label="联系人手机号"
             sortable
 						align="center">
           </el-table-column>
 					<el-table-column
             fixed
-            prop="name"
+            prop="reason"
             sortable
 						align="center"
             label="联系事由">
@@ -70,7 +74,7 @@
           </el-table-column>
 					<el-table-column
             fixed
-            prop="name"
+            prop="remark"
             sortable
 						align="center"
             label="备注">
@@ -96,6 +100,8 @@ import * as table from './data/table';
   export default {
       data () {
         return {
+          name: '',
+          mobile: '',
           dialogVisibleNo: false,
           createTime: '',
           city : [
@@ -127,7 +133,7 @@ import * as table from './data/table';
     },
     methods:{
 			init () {
-				this.historyData = this.initialProduct =  table.productList;
+				this.historyData = this.initialProduct =  table.business;
 				this.status1 = table.status1;
       },
        handleClose(done) {
@@ -140,10 +146,10 @@ import * as table from './data/table';
       // 获取历史记录信息
       handleListApproveHistory(){
         // 保存取到的所有数据
-        this.ajaxHistoryData = table.productList.histories
-        this.dataCount = table.productList.histories.length;
+        this.ajaxHistoryData = table.business
+        this.dataCount = table.business.length;
         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-        if(table.productList.histories.length < this.pageSize){
+        if(table.business.length < this.pageSize){
           this.historyData = this.ajaxHistoryData;
         }else{
           this.historyData = this.ajaxHistoryData.slice(0,this.pageSize);

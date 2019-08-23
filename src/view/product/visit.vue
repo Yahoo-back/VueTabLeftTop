@@ -1,6 +1,13 @@
 <style lang="less">
     @import '../../styles/common.less';
     @import './components/table.less';
+    .main .single-page-con {
+			background: #fff;
+    }
+    .el-input__inner {
+      height: 32px;
+      line-height: 32px;
+    }
 </style>
 <template>
   <div id="app">
@@ -12,7 +19,8 @@
       <Row>
         <div class="demo-input-suffix">
           商品名称：
-				  <Input v-model="searchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入商品名称" style="width: 180px" v-model="name" suffix-icon="el-icon-search" clearable />
+				  <!-- <Input v-model="searchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" /> -->
           创建时间:
           <el-date-picker
             v-model="createTime"
@@ -166,6 +174,7 @@ import * as table from './data/table';
   export default {
       data () {
         return {
+          name: '',
           dialogVisibleSale: false,
           dialogVisibleUp: false,
           dialogVisibleDown: false,

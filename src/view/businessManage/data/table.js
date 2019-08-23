@@ -1,18 +1,12 @@
-export const productList = {
-  "histories": [
+export const business = [
 		{
-			"name": "有钱",
-			"classify": "现金贷",
-			"link": "http://www.baidu.com",
-			"status": "下架",
-			"sort": "1",
-			"is_hot": "是",
-			"hot_sort": "1",
-			"position": "默认",
-			"create_time": "2019-8-16 12:26:12"
+			"name": "name",
+			"mobile": "mobile",
+			"reason": "reason",
+      "create_time": "create_time",
+      "remark": "remark"
 		},
 ]
-};
 
 export const status1 = [
   {
