@@ -8,15 +8,26 @@
         <Icon type="help-buoy"></Icon>
         客户列表
       </p>
+      <!-- <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="手机号:">
+          <el-input v-model="formInline.mobile" placeholder="手机号" @change="handleInput()" style="width: 180px" suffix-icon="el-icon-search" clearable />
+        </el-form-item>
+        <el-form-item label="身份证号:">
+          <el-input placeholder="请输入身份证号" style="width: 180px" v-model="formInline.id_card" suffix-icon="el-icon-search" clearable />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" v-if="isOk">查询</el-button>
+          <el-button type="primary" v-if="!isOk">查6询</el-button>
+        </el-form-item>
+      </el-form> -->
       <Row>
         <div class="demo-input-suffix">
           手机号：
-          <el-input placeholder="请输入手机号" style="width: 180px" v-model="mobile" suffix-icon="el-icon-search" clearable />
-				  <!-- <Input v-model="mobile" icon="search" placeholder="请输入手机号" style="width: 180px" /> -->
+          <el-input placeholder="请输入手机号" style="width: 180px" @change="handleInput()" v-model="mobile" suffix-icon="el-icon-search" clearable />
           身份证号：
-          <el-input placeholder="请输入身份证号" style="width: 180px" v-model="id_card" suffix-icon="el-icon-search" clearable />
-				  <el-button v-if="isOk" @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
-          <el-button v-if="!isOk" @click="handleView" type="primary" size="small" style="margin-left: 20px">新增商品</el-button>
+          <el-input placeholder="请输入身份证号" style="width: 180px" @change="handleInput()" v-model="id_card" suffix-icon="el-icon-search" clearable />
+				  <!-- <el-button v-if="isOk"  @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button> -->
+          <el-button :disabled="disabled" @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
         </div>
       </Row>
       <div style="margin-top: 20px">
@@ -157,6 +168,11 @@ import * as table from './data/table';
   export default {
       data () {
         return {
+          formInline: {
+          mobile: '',
+          id_card: '',
+          },
+          disabled: true,
           mobile: '',
           id_card: '',
           dialogVisibleSale: false,
@@ -196,7 +212,8 @@ import * as table from './data/table';
     },
     methods:{
 			getInputValue() {
-				this.searchMobile.length >=1 ? this.isOk=true : this.isOk = false;
+        console.log(this.formline.mobile.length)
+				this.formline.mobile.length >=1 ? this.isOk=true : this.isOk = false;
 			},
 			init () {
 				this.historyData = this.initialProduct =  table.customerList;
@@ -236,6 +253,13 @@ import * as table from './data/table';
       },
       handleView() {
         this.$router.push({ path:'/product/list/productInfo'  })
+      },
+      handleInput(){
+        this.mobile.length >=1 ? this.isOk=true : this.isOk = false;
+        this.id_card.length >=1 ? this.isOk=true : this.isOk = false;
+
+        this.mobile.length >=1 ? this.disabled=false : this.disabled = true;
+        this.id_card.length >=1 ? this.disabled=false : this.disabled = true;
       }
     },
     created(){
