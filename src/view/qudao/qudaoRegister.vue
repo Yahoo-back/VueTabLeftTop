@@ -30,7 +30,7 @@
             <el-option label="在职" value="2">在职</el-option>
             <el-option label="离职" value="4">离职</el-option>
           </el-select>
-					<el-button @click="handleAdd()"  type="primary" size="small" style="margin-left: 20px">新增渠道商</el-button>
+					<el-button @click="handleAdd()" type="primary" size="small" style="margin-left: 20px">新增渠道商</el-button>
 					<el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
         </div>
       </Row>

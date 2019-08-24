@@ -38,3 +38,11 @@ export const qdRegister = [
 	"status": "2",
 },
 ]
+export const qdSL = [
+	{
+		"id":"13",
+		"source": "source",
+		"sl": "sl",
+		"update_time": "update_time",
+	},
+	]
