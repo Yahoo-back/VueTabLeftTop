@@ -265,7 +265,6 @@
             <el-input v-else v-model="dataForm.liveAddr" placeholder="家庭地址"></el-input>
           </el-form-item>
         </el-form>
-        </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
           <span @click="onDialogSubmit()" v-if="dialogTitle=='查看'"></span>

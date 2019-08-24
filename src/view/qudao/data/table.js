@@ -29,3 +29,12 @@ export const status1 = [
 			label: '深圳市'
 	},
 ]
+export const qdRegister = [
+{
+	"id":"13",
+	"user_code": "user_code",
+	"user_name": "user_name",
+	"uvurl": "uvurl",
+	"status": "2",
+},
+]
