@@ -11,13 +11,17 @@
       <Row>
         <div class="demo-input-suffix">
           手机号：
-				  <Input v-model="searchMobile" @keyup="getInputValue" @on-change="handleSearchMobile" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入手机号" style="width: 180px" v-model="mobile" suffix-icon="el-icon-search" clearable /> 
+				  <!-- <Input v-model="searchMobile" @keyup="getInputValue" @on-change="handleSearchMobile" icon="search" placeholder="请输入商品名称" style="width: 180px" /> -->
           身份证号：
-				  <Input v-model="searchCard" @keyup="getInputValue" @on-change="handleSearchCard" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入身份证号" style="width: 180px" v-model="id_card" suffix-icon="el-icon-search" clearable /> 
+				  <!-- <Input v-model="searchCard" @keyup="getInputValue" @on-change="handleSearchCard" icon="search" placeholder="请输入商品名称" style="width: 180px" /> -->
           银行卡号：
-				  <Input v-model="searchMobile" @keyup="getInputValue" @on-change="handleSearchMobile" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入银行卡号" style="width: 180px" v-model="bank_card" suffix-icon="el-icon-search" clearable /> 
+				  <!-- <Input v-model="searchMobile" @keyup="getInputValue" @on-change="handleSearchMobile" icon="search" placeholder="请输入商品名称" style="width: 180px" /> -->
           订单号：
-				  <Input v-model="searchCard" @keyup="getInputValue" @on-change="handleSearchCard" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入订单号" style="width: 180px" v-model="request_no" suffix-icon="el-icon-search" clearable /> 
+				  <!-- <Input v-model="searchCard" @keyup="getInputValue" @on-change="handleSearchCard" icon="search" placeholder="请输入商品名称" style="width: 180px" /> -->
 					<el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
         </div>
       </Row>
@@ -35,7 +39,7 @@
           </el-table-column>
 					<el-table-column
             fixed
-            prop="name"
+            prop="request_no"
             sortable
             align="center"
             label="订单号"
@@ -43,77 +47,77 @@
           </el-table-column>
           <el-table-column
             fixed
-            prop="name"
+            prop="mobile"
             sortable
             align="center"
             label="手机号"
             width="150">
           </el-table-column>
           <el-table-column
-            prop="classify"
+            prop="id_card"
             sortable
             align="center"
             label="身份证号"
             width="150">
           </el-table-column>
           <el-table-column
-            prop="link"
+            prop="create_time"
             sortable
             align="center"
             label="注册时间"
             width="240">
           </el-table-column>
           <el-table-column
-            prop="status"
+            prop="source"
             label="来源"
             sortable
             align="center"
             width="120">
           </el-table-column>
           <el-table-column
-            prop="create_time"
+            prop="user_name"
             label="姓名"
             sortable
             align="center"
             width="180">
           </el-table-column>
            <el-table-column
-            prop="create_time"
+            prop="bank_card"
             label="银行卡号"
             sortable
             align="center"
             width="180">
           </el-table-column>
            <el-table-column
-            prop="create_time"
+            prop="user_auth"
             label="认证状态"
             sortable
             align="center"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="create_time"
+            prop="pay_amt"
             label="已支付金额"
             sortable
             align="center"
             width="180">
           </el-table-column>
 					<el-table-column
-            prop="create_time"
+            prop="amt"
             label="迅付金额"
             sortable
             align="center"
             width="180">
           </el-table-column>
            <el-table-column
-            prop="create_time"
+            prop="status"
             label="状态"
             sortable
             align="center"
             width="180">
           </el-table-column>
            <el-table-column
-            prop="create_time"
+            prop="remark"
             label="备注"
             sortable
             align="center"
@@ -156,6 +160,10 @@ import * as table from './data/table';
   export default {
       data () {
         return {
+          mobile: '',
+          id_card: '',
+          bank_card: '',
+          request_no: '',
           dialogVisibleSale: false,
           dialogVisibleUp: false,
           dialogVisibleDown: false,
@@ -196,7 +204,7 @@ import * as table from './data/table';
 				this.searchMobile.length >=1 ? this.isOk=true : this.isOk = false;
 			},
 			init () {
-				this.historyData = this.initialProduct =  table.productList;
+				this.historyData = this.initialProduct =  table.email;
 				this.status1 = table.status1;
       },
        handleClose(done) {
@@ -209,10 +217,10 @@ import * as table from './data/table';
       // 获取历史记录信息
       handleListApproveHistory(){
         // 保存取到的所有数据
-        this.ajaxHistoryData = table.productList.histories
-        this.dataCount = table.productList.histories.length;
+        this.ajaxHistoryData = table.email;
+        this.dataCount = table.email.length;
         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-        if(table.productList.histories.length < this.pageSize){
+        if(table.email.length < this.pageSize){
           this.historyData = this.ajaxHistoryData;
         }else{
           this.historyData = this.ajaxHistoryData.slice(0,this.pageSize);

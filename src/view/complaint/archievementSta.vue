@@ -21,7 +21,8 @@
           </el-date-picker>
 				  <!-- <Input v-model="searchMobile" @keyup="getInputValue" @on-change="handleSearchMobile" icon="search" placeholder="请输入商品名称" style="width: 180px" /> -->
           姓名：
-				  <Input v-model="searchCard" @keyup="getInputValue" @on-change="handleSearchCard" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入姓名" style="width: 180px" v-model="user_name" suffix-icon="el-icon-search" clearable /> 
+				  <!-- <Input v-model="searchCard" @keyup="getInputValue" @on-change="handleSearchCard" icon="search" placeholder="请输入商品名称" style="width: 180px" /> -->
           <el-button  @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
           <!-- <el-button  @click="handleView" type="primary" size="small" style="margin-left: 20px">新增商品</el-button> -->
         </div>
@@ -40,37 +41,37 @@
           </el-table-column>
           <el-table-column
             fixed
-            prop="name"
+            prop="user_name"
             sortable
             align="center"
             label="人员">
           </el-table-column>
           <el-table-column
-            prop="classify"
+            prop="audit_new"
             sortable
             align="center"
             label="跟单量">
           </el-table-column>
           <el-table-column
-            prop="link"
+            prop="new_pass_cnt"
             sortable
             align="center"
             label="退款量">
           </el-table-column>
           <el-table-column
-            prop="status"
+            prop="new_pass_rate"
             label="退款率"
             sortable
             align="center">
           </el-table-column>
           <el-table-column
-            prop="create_time"
+            prop="new_reject_cnt"
             label="驳回量"
             sortable
             align="center">
           </el-table-column>
           <el-table-column
-            prop="create_time"
+            prop="new_reject_rate"
             label="驳回率"
             sortable
             align="center">
@@ -101,6 +102,7 @@ import * as table from './data/table';
   export default {
       data () {
         return {
+          user_name: '',
           dialogVisibleSale: false,
           dialogVisibleUp: false,
           dialogVisibleDown: false,
@@ -141,7 +143,7 @@ import * as table from './data/table';
 				this.searchMobile.length >=1 ? this.isOk=true : this.isOk = false;
 			},
 			init () {
-				this.historyData = this.initialProduct =  table.productList;
+				this.historyData = this.initialProduct =  table.statistics;
 				this.status1 = table.status1;
       },
        handleClose(done) {
@@ -154,10 +156,10 @@ import * as table from './data/table';
       // 获取历史记录信息
       handleListApproveHistory(){
         // 保存取到的所有数据
-        this.ajaxHistoryData = table.productList.histories
-        this.dataCount = table.productList.histories.length;
+        this.ajaxHistoryData = table.statistics;
+        this.dataCount = table.statistics.length;
         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-        if(table.productList.histories.length < this.pageSize){
+        if(table.statistics.length < this.pageSize){
           this.historyData = this.ajaxHistoryData;
         }else{
           this.historyData = this.ajaxHistoryData.slice(0,this.pageSize);
