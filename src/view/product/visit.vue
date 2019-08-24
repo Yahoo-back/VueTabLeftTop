@@ -4,10 +4,10 @@
     .main .single-page-con {
 			background: #fff;
     }
-    .el-input__inner {
-      height: 32px;
-      line-height: 32px;
-    }
+    // .el-input__inner {
+    //   height: 40px;
+    //   line-height: 40px;
+    // }
 </style>
 <template>
   <div id="app">

@@ -23,8 +23,22 @@ export const people = [
         "sex": "1",
         "status": "2"
     },
-
 ]
+export const role = [
+    {
+        "roleId": "roleId",
+        "roleCode": "roleCode",
+        "roleName": "roleName"
+    },
+]
+//角色分配
+export const rolePost = [
+    {
+        "roleId": "roleId",
+        "roleName": "roleName"
+    },
+]
+
 
 export const status1 = [
     {

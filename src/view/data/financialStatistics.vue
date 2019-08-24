@@ -16,9 +16,10 @@
       <Row>
         <div class="demo-input-suffix">
            来源：
-          <Select v-model="source" style="width:100px">
-            <Option v-for="item in rows" :label="item.source" :value="item.source" :key="item.source">{{ item.source }}</Option>
-          </Select>
+          <el-select v-model="source" placeholder="请选择" style="width:100px">
+            <el-option  value="">请选择</el-option> 
+            <el-option v-for="item in rows" :label="item.source" :value="item.source" :key="item.source">{{ item.source }}</el-option>
+          </el-select>
         	请选择日期:
           <el-date-picker
             v-model="createTime"

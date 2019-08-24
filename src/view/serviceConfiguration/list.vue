@@ -4,10 +4,10 @@
     .main .single-page-con {
 			background: #fff;
     }
-    .el-input__inner {
-      height: 32px;
-      line-height: 32px;
-    }
+    // .el-input__inner {
+    //   height: 32px;
+    //   line-height: 32px;
+    // }
 </style>
 <template>
   <div id="app">
@@ -82,15 +82,15 @@
 			<Page :total="dataCount" :page-size="pageSize" show-total class="paging" @on-change="changepage"></Page>
       <el-dialog :append-to-body='true' :title="dialogTitle" :visible.sync="dialogVisible" @close="onDialogClose()">
         <el-form ref="dataForm" :model="dataForm" label-width="80px">
-          <el-form-item label="条件名称" prop="dictDesc">
+          <el-form-item label="条件名称:" prop="dictDesc">
             <template v-if="dialogTitle=='查看'">{{dataForm.dictDesc}}</template>
             <el-input v-else v-model="dataForm.dictDesc" placeholder="条件名称"></el-input>
           </el-form-item>
-          <el-form-item label="值1" prop="itemValue">
+          <el-form-item label="值1:" prop="itemValue">
             <template v-if="dialogTitle=='查看'">{{dataForm.itemValue}}</template>
             <el-input v-else v-model="dataForm.itemValue" placeholder="值1"></el-input>
           </el-form-item>
-          <el-form-item label="值2" prop="itemKey">
+          <el-form-item label="值2:" prop="itemKey">
             <template v-if="dialogTitle=='查看'">{{dataForm.itemKey}}</template>
             <el-input v-else v-model="dataForm.itemKey" placeholder="值2"></el-input>
           </el-form-item>

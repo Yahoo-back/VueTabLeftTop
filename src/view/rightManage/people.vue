@@ -5,10 +5,10 @@
 		.main .single-page-con {
 			background: #fff;
     }
-    .el-input__inner {
-      height: 32px;
-      line-height: 32px;
-    }
+    // .el-input__inner {
+    //   height: 32px;
+    //   line-height: 32px;
+    // }
 </style>
 <template>
   <div id="app">
@@ -20,24 +20,34 @@
       <Row>
         <div class="demo-input-suffix">       
 					登录账号：
-          <el-input placeholder="请输入登录账号" style="width: 180px" v-model="user_code" suffix-icon="el-icon-search" clearable />
+          <el-input placeholder="请输入登录账号" style="width: 160px" v-model="user_code" suffix-icon="el-icon-search" clearable />
           员工姓名：
-          <el-input placeholder="请输入员工姓名" style="width: 180px" v-model="user_name" suffix-icon="el-icon-search" clearable />
+          <el-input placeholder="请输入员工姓名" style="width: 160px" v-model="user_name" suffix-icon="el-icon-search" clearable />
 					身份证号：
-          <el-input placeholder="请输入身份证号" style="width: 180px" v-model="identity_card" suffix-icon="el-icon-search" clearable />
+          <el-input placeholder="请输入身份证号" style="width: 160px" v-model="identity_card" suffix-icon="el-icon-search" clearable />
           性别：
-          <Select v-model="sex" style="width:100px">
+          <el-select v-model="sex" placeholder="请选择" style="width:100px">
+            <el-option  value="">请选择</el-option>
+            <el-option label="男" value="0">男</el-option>
+            <el-option label="女" value="1">女</el-option>
+          </el-select>
+          <!-- <Select v-model="sex" style="width:100px">
             <Option value="">请选择</Option>
             <Option value="0">男</Option>
             <Option value="1">女</Option>
-          </Select>
+          </Select> -->
           状态：
-           <Select v-model="status" style="width:100px">
+          <el-select v-model="status" placeholder="请选择" style="width:100px">
+            <el-option  value="">请选择</el-option>
+            <el-option label="在职" value="2">在职</el-option>
+            <el-option label="离职" value="4">离职</el-option>
+          </el-select>
+           <!-- <Select v-model="status" style="width:100px">
             <Option value="">请选择</Option>
             <Option value="2">在职</Option>
             <Option value="4">离职</Option>
-          </Select>
-					<el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增内部员工</el-button>
+          </Select> -->
+					<el-button  @click="handleAdd()" type="primary" size="small" style="margin-left: 20px">新增内部员工</el-button>
 					<el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
         </div>
       </Row>
@@ -97,6 +107,8 @@
             align="center"
             width="320">
             <template slot-scope="scope">
+              <!-- 查看界面跳转 -->
+              <!-- <el-button @click="handleView" type="text" size="small">查看</el-button> -->
               <el-button @click="handleLook(scope.$index, scope.row)" type="text" size="small">查看</el-button>
               <el-button  @click="handleEdit(scope.$index, scope.row)" type="text" size="small"  v-if="scope.row.status == 2">修改</el-button>
               <el-button @click="dialogVisibleLeave = true" type="text" size="small" v-if="scope.row.status == 2">离职</el-button>
@@ -139,19 +151,6 @@
                   <el-button type="primary" @click="dialogVisibleDown = false">确 定</el-button>
                 </span>
               </el-dialog>
-              <!-- <el-button @click="dialogVisibleDelete = true" type="text" size="small">删除</el-button>
-               <el-dialog
-                title="提示"
-                :visible.sync="dialogVisibleDelete"
-                :append-to-body='true'
-                width="30%"
-                :before-close="handleClose">
-                <span>确定要将删除该商品吗？</span>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisibleDelete = false">取 消</el-button>
-                  <el-button type="primary" @click="dialogVisibleDelete = false">确 定</el-button>
-                </span>
-              </el-dialog> -->
             </template>
           </el-table-column>
         </el-table>
@@ -159,19 +158,113 @@
 			<!-- <Table :columns="historyColumns" :data="historyData" class="table"></Table> -->
 			<Page :total="dataCount" :page-size="pageSize" show-total class="paging" @on-change="changepage"></Page>
       <el-dialog :append-to-body='true' :title="dialogTitle" :visible.sync="dialogVisible" @close="onDialogClose()">
-        <el-form ref="dataForm" :model="dataForm" label-width="80px">
-          <el-form-item label="条件名称" prop="dictDesc">
-            <template v-if="dialogTitle=='查看'">{{dataForm.dictDesc}}</template>
-            <el-input v-else v-model="dataForm.dictDesc" placeholder="条件名称"></el-input>
+        <el-form ref="dataForm" :model="dataForm" label-width="100px">
+          <el-row>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="姓名：">
+                <template v-if="dialogTitle=='查看'">{{dataForm.userName}}</template>
+                <el-input v-else v-model="dataForm.userName" placeholder="姓名"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="登录账号：">
+                <template v-if="dialogTitle=='查看'">{{dataForm.userCode}}</template>
+                <el-input v-else v-model="dataForm.userCode" placeholder="登录帐号"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row> 
+          <el-row>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">  
+              <el-form-item label="性别：" >
+                <template v-if="dialogTitle=='查看'">{{dataForm.sex == "0" ? "男" : dataForm.sex == "1" ? "女" : "未知"}}</template>
+                <el-select  v-else v-model="dataForm.sex" placeholder="请选择">
+                  <el-option label="男" value="0">男</el-option>
+                  <el-option label="女" value="1">女</el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="身份证：" prop="identityCard">
+                <template v-if="dialogTitle=='查看'">{{dataForm.identityCard}}</template>
+                <el-input v-else v-model="dataForm.identityCard" placeholder="身份证"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="工号：">
+                <template v-if="dialogTitle=='查看'">{{dataForm.jobNum}}</template>
+                <el-input v-else v-model="dataForm.jobNum" placeholder="工号"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>   
+          <el-row>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="学历：" prop="degree">
+                <template v-if="dialogTitle=='查看'">{{dataForm.degree == "0" ? "本科以上" : dataForm.degree == "1" ? "本科" :  dataForm.degree == "2" ? "大专" : dataForm.degree == "3" ? "高中" : dataForm.degree == "4" ? "初中" : "未知" }}</template>
+                <el-select  v-else v-model="dataForm.degree" placeholder="请选择">
+                  <el-option label="本科以上" value="0">本科以上</el-option>
+                  <el-option label="本科" value="1">本科</el-option>
+                  <el-option label="大专" value="2">大专</el-option>
+                  <el-option label="高中" value="3">高中</el-option>
+                  <el-option label="初中" value="4">初中</el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="电话：">
+                <template v-if="dialogTitle=='查看'">{{dataForm.phone}}</template>
+                <el-input v-else v-model="dataForm.phone" placeholder="电话"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>  
+          <el-row>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="公司邮箱：" prop="companyEmail">
+                <template v-if="dialogTitle=='查看'">{{dataForm.companyEmail}}</template>
+                <el-input v-else v-model="dataForm.companyEmail" placeholder="公司邮箱"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="个人邮箱：">
+                <template v-if="dialogTitle=='查看'">{{dataForm.personalEmail}}</template>
+                <el-input v-else v-model="dataForm.personalEmail" placeholder="个人邮箱"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row> 
+          <el-row>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="QQ：" prop="qq">
+                <template v-if="dialogTitle=='查看'">{{dataForm.qq}}</template>
+                <el-input v-else v-model="dataForm.qq" placeholder="QQ"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="微信：">
+                <template v-if="dialogTitle=='查看'">{{dataForm.weixin}}</template>
+                <el-input v-else v-model="dataForm.weixin" placeholder="微信"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row> 
+          <el-row>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="入职时间：" prop="onjobDate">
+                <template v-if="dialogTitle=='查看'">{{dataForm.onjobDate}}</template>
+                 <el-date-picker v-else v-model="dataForm.onjobDate"  type="date" placeholder="选择日期"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
+              <el-form-item label="所属部门：">
+                <template v-if="dialogTitle=='查看'">{{dataForm.department}}</template>
+                <el-input v-else v-model="dataForm.department" placeholder="所属部门"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row> 
+          <el-form-item label="家庭住址：" prop="liveAddr">
+            <template v-if="dialogTitle=='查看'">{{dataForm.liveAddr}}</template>
+            <el-input v-else v-model="dataForm.liveAddr" placeholder="家庭地址"></el-input>
           </el-form-item>
-          <el-form-item label="值1" prop="itemValue">
-            <template v-if="dialogTitle=='查看'">{{dataForm.itemValue}}</template>
-            <el-input v-else v-model="dataForm.itemValue" placeholder="值1"></el-input>
-          </el-form-item>
-          <el-form-item label="值2" prop="itemKey">
-            <template v-if="dialogTitle=='查看'">{{dataForm.itemKey}}</template>
-            <el-input v-else v-model="dataForm.itemKey" placeholder="值2"></el-input>
-          </el-form-item>
+        </el-form>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
@@ -197,9 +290,20 @@ import * as table from './data/table';
       data () {
         return {
           dataForm: {
-            dictDesc: '',
-            itemKey: '',
-            itemValue: '',
+            userCode: '',
+            userName: '',
+            sex: '',
+            degree: '',
+            jobNum: '',
+            phone: '',
+            companyEmail: '',
+            personalEmail: '',
+            qq: '',
+            weixin: '',
+            onjobDate: '',
+            department: '',
+            liveAddr: '',
+            identityCard: '',
           },
           dialogVisible: false,
           dialogTitle: '查看',
@@ -309,6 +413,10 @@ import * as table from './data/table';
       handleEdit(index,row) {
         this.dialogVisible = true
         this.dialogTitle = '修改'
+      },
+      handleAdd(index,row) {
+        this.dialogVisible = true
+        this.dialogTitle = '新增'
       },
       onDialogSubmit() {
           

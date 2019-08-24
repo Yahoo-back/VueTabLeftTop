@@ -4,10 +4,10 @@
     .main .single-page-con {
 			background: #fff;
     }
-    .el-input__inner {
-      height: 32px;
-      line-height: 32px;
-    }
+    // .el-input__inner {
+    //   height: 32px;
+    //   line-height: 32px;
+    // }
 </style>
 <template>
   <div id="app">
@@ -40,26 +40,41 @@
             align="right">
           </el-date-picker>
           来源：
-          <Select v-model="source" style="width:100px">
+          <el-select v-model="source" placeholder="请选择" style="width:100px">
+            <el-option  value="">请选择</el-option>
+            <el-option v-for="item in rows" :label="item.source" :value="item.source" :key="item.source">{{ item.source }}</el-option>
+          </el-select>
+          <!-- <Select v-model="source" style="width:100px">
             <Option v-for="item in rows" :label="item.source" :value="item.source" :key="item.source">{{ item.source }}</Option>
-          </Select>
+          </Select> -->
 					 状态：
-          <Select v-model="status" style="width:100px">
+          <el-select v-model="status" placeholder="请选择" style="width:100px">
+            <el-option  value="">请选择</el-option>
+            <el-option label="正常" value="0">正常</el-option>
+            <el-option label="禁用" value="1">禁用</el-option>
+          </el-select>
+          <!-- <Select v-model="status" style="width:100px">
             <Option value="">请选择</Option>
             <Option value="0">正常</Option>
             <Option value="1">禁用</Option>
-            <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
-          </Select>
+          </Select> -->
           认证状态：
-          <Select v-model="status" style="width:100px">
+          <el-select v-model="user_auth" placeholder="请选择" style="width:100px">
+            <el-option  value="">请选择</el-option>
+            <el-option label="未认证" value="0">未认证</el-option>
+            <el-option label="身份证" value="1">身份证</el-option>
+            <el-option label="借款信息" value="2">借款信息</el-option>
+            <el-option label="联系人" value="3">联系人</el-option>
+            <el-option label="银行卡" value="4">银行卡</el-option>
+          </el-select>
+          <!-- <Select v-model="user_auth" style="width:100px">
             <Option value="">请选择</Option>
             <Option value="0">未认证</Option>
             <Option value="1">身份证</Option>
             <Option value="2">借款信息</Option>
             <Option value="3">联系人</Option>
             <Option value="4">银行卡</Option>
-            <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
-          </Select>        
+          </Select>         -->
           <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
           <!-- <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增客户</el-button> -->
         </div>

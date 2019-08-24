@@ -4,10 +4,10 @@
     .main .single-page-con {
 			background: #fff;
     }
-    .el-input__inner {
-      height: 32px;
-      line-height: 32px;
-    }
+    // .el-input__inner {
+    //   height: 32px;
+    //   line-height: 32px;
+    // }
 </style>
 <template>
   <div id="app">
@@ -32,31 +32,48 @@
             align="right">
           </el-date-picker>
           分类：
-          <Select v-model="classify" style="width:100px">
+          <el-select v-model="classify" placeholder="请选择" style="width:100px">
+            <el-option  value="">请选择</el-option>
+            <el-option v-for="item in rows" :label="item.name" :value="item.name" :key="item.name">{{ item.name }}</el-option>
+          </el-select>
+          <!-- <Select v-model="classify" style="width:100px">
             <Option v-for="item in rows" :label="item.name" :value="item.name" :key="item.name">{{ item.name }}</Option>
-          </Select>
+          </Select> -->
           状态：
-          <Select v-model="status" style="width:100px">
+          <el-select v-model="status" placeholder="请选择" style="width:100px">
+            <el-option  value="">请选择</el-option>
+            <el-option label="下架" value="0">下架</el-option>
+            <el-option label="上架" value="1">上架</el-option>
+          </el-select>
+          <!-- <Select v-model="status" style="width:100px">
             <Option value="">请选择</Option>
             <Option value="0">下架</Option>
             <Option value="1">上架</Option>
-            <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
-          </Select>
+          </Select> -->
           是否首页热门：
-          <Select v-model="is_hot" style="width:100px">
+          <el-select v-model="is_hot" placeholder="请选择" style="width:100px">
+            <el-option  value="">请选择</el-option>
+            <el-option label="否" value="0">否</el-option>
+            <el-option label="是" value="1">是</el-option>
+          </el-select>
+          <!-- <Select v-model="is_hot" style="width:100px">
             <Option value="">请选择</Option>
             <Option value="0">否</Option>
             <Option value="1">是</Option>
-            <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
-          </Select>
+          </Select> -->
           位置：
-          <Select v-model="position" style="width:100px">
+          <el-select v-model="position" placeholder="请选择" style="width:100px">
+            <el-option  value="">请选择</el-option>
+            <el-option label="默认" value="0">默认</el-option>
+            <el-option label="置顶" value="1">置顶</el-option>
+            <el-option label="置尾" value="2">置尾</el-option>
+          </el-select>
+          <!-- <Select v-model="position" style="width:100px">
             <Option value="">请选择</Option>
             <Option value="0">默认</Option>
             <Option value="1">置顶</Option>
             <Option value="2">置尾</Option>
-            <!-- <Option v-for="item in city" :label="item.label" :value="item.value" :key="item.value">{{ item.label }}</Option> -->
-          </Select>
+          </Select> -->
           <el-button @click="handleSearch" type="primary" size="small" style="margin-left: 20px">查询</el-button>
           <el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">新增商品</el-button>
         </div>

@@ -15,9 +15,9 @@
       <Row>
         <div class="demo-input-suffix">
           角色ID：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入角色ID" style="width: 180px" v-model="roleId" suffix-icon="el-icon-search" clearable />
           角色名称：
-				  <Input v-model="searchProductName" @on-change="handleSearchProductName" icon="search" placeholder="请输入商品名称" style="width: 180px" />
+          <el-input placeholder="请输入角色名称" style="width: 180px" v-model="roleName" suffix-icon="el-icon-search" clearable />
 					<el-button @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
 				</div>
       </Row>
@@ -35,13 +35,13 @@
           </el-table-column>
           <el-table-column
             fixed="left"
-            prop="name"
+            prop="roleId"
             sortable
 						align="center"
             label="角色ID">
           </el-table-column>
 					<el-table-column
-            prop="create_time"
+            prop="roleName"
             label="角色名称"
             sortable
 						align="center">
@@ -57,7 +57,6 @@
           </el-table-column>
         </el-table>
       </div>
-			<!-- <Table :columns="historyColumns" :data="historyData" class="table"></Table> -->
 			<Page :total="dataCount" :page-size="pageSize" show-total class="paging" @on-change="changepage"></Page>
 		</Card>
   </div>
@@ -76,6 +75,8 @@ import * as table from './data/table';
   export default {
       data () {
         return {
+          roleId: '',
+          roleName: '',
           dialogVisibleNo: false,
           createTime: '',
           city : [
@@ -107,7 +108,7 @@ import * as table from './data/table';
     },
     methods:{
 			init () {
-				this.historyData = this.initialProduct =  table.productList;
+				this.historyData = this.initialProduct =  table.rolePost;
 				this.status1 = table.status1;
       },
        handleClose(done) {
@@ -120,10 +121,10 @@ import * as table from './data/table';
       // 获取历史记录信息
       handleListApproveHistory(){
         // 保存取到的所有数据
-        this.ajaxHistoryData = table.productList.histories
-        this.dataCount = table.productList.histories.length;
+        this.ajaxHistoryData = table.rolePost
+        this.dataCount = table.rolePost.length;
         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-        if(table.productList.histories.length < this.pageSize){
+        if(table.rolePost.length < this.pageSize){
           this.historyData = this.ajaxHistoryData;
         }else{
           this.historyData = this.ajaxHistoryData.slice(0,this.pageSize);
