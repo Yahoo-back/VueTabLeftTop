@@ -109,12 +109,44 @@ export const routerInfo = [
     children: [{path: 'qdRegisterInfo', title: 'qdRegisterInfo', name: 'qdRegisterInfo', component: _import('qudao/qdRegisterInfo')}]
   },
    //渠道缩量
-   {
+  {
     path: '/qudao/qudaoSL/',
     component: Layout,
     name: 'qudao',
     hidden: true,
     children: [{path: 'qdSLInfo', title: 'qdSLInfo', name: 'qdSLInfo', component: _import('qudao/qdSLInfo')}]
+  },
+  //客诉客户列表
+  {
+    path: '/complaint/customer/',
+    component: Layout,
+    name: 'customer',
+    hidden: true,
+    children: [{path: 'customerInfo', title: 'customerInfo', name: 'customerInfo', component: _import('complaint/customerInfo')}]
+  },
+  //客诉我的客户列表
+  {
+    path: '/complaint/myCustomer/',
+    component: Layout,
+    name: 'myCustomer',
+    hidden: true,
+    children: [{path: 'myCustomerInfo', title: 'myCustomerInfo', name: 'myCustomerInfo', component: _import('complaint/myCustomerInfo')}]
+  },
+  //客诉退款列表
+  {
+    path: '/complaint/reback/',
+    component: Layout,
+    name: 'reback',
+    hidden: true,
+    children: [{path: 'rebackInfo', title: 'rebackInfo', name: 'rebackInfo', component: _import('complaint/rebackInfo')}]
+  },
+  //客诉邮件退款列表
+  {
+    path: '/complaint/emailReback/',
+    component: Layout,
+    name: 'emailReback',
+    hidden: true,
+    children: [{path: 'eRebackInfo', title: 'eRebackInfo', name: 'eRebackInfo', component: _import('complaint/eRebackInfo')}]
   },
 ];
 /**

@@ -250,7 +250,7 @@ import * as table from './data/table';
         // this.historyData = this.search(this.historyData, {name: this.searchProductName});
       },
       handleView() {
-        this.$router.push({ path:'/product/list/productInfo'  })
+        this.$router.push({ path:'/complaint/customer/customerInfo'  })
       },
       handleInput(){
         //控制disabled
