@@ -90,7 +90,8 @@ export const customerList = [
 	  "user_auth": "借款信息",
 	  "pay_amt": "5",
 	  "status": "1",
-	  "remark": "备注"
+	  "remark": "备注",
+	  "refundstatus": "5"
 	},
 	{
 		"id":"2",
@@ -103,7 +104,8 @@ export const customerList = [
 		"user_auth": "借款信息",
 		"pay_amt": "5",
 		"status": "1",
-		"remark": "备注"
+		"remark": "备注",
+		"refundstatus": "5"
 	  },
 	  {
 		"id":"3",
@@ -170,7 +172,8 @@ export const customerList = [
 	  "user_auth": "借款信息",
 	  "pay_amt": "5",
 	  "status": "1",
-	  "remark": "备注"
+	  "remark": "备注",
+	  "refundstatus": "1"
 	},
 	{
 		"id":"2",
@@ -209,7 +212,8 @@ export const customerList = [
 		"user_auth": "借款信息",
 		"pay_amt": "5",
 		"status": "1",
-		"remark": "备注"
+		"remark": "备注",
+		"refundstatus": "4"
 	  },
 	  {
 		"id":"5",

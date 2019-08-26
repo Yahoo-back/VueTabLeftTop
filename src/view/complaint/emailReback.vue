@@ -131,10 +131,22 @@
             width="160">
             <template slot-scope="scope">
               <el-button @click="handleView" type="text" size="small">查看</el-button>
-							<el-button @click="handleView" type="text" size="small">退款</el-button>
+							<el-button @click="dialogRebackVisible = true" type="text" size="small">退款</el-button>
             </template>
           </el-table-column>
         </el-table>
+        <el-dialog title="退款" :visible.sync="dialogRebackVisible" :append-to-body='true' width="35%" :before-close="handleClose">
+          <el-form :model="form">
+            <el-form-item label="退款金额" :label-width="formLabelWidth">
+              <el-input v-model="form.money" autocomplete="off" :placeholder='"退款金额应小于"+form.pay_amt+"元"'></el-input>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogRebackVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogRebackVisible = false">确 定</el-button>
+          </div>
+        </el-dialog>
+
       </div>
 			<!-- <Table :columns="historyColumns" :data="historyData" class="table"></Table> -->
 			<Page :total="dataCount" :page-size="pageSize" show-total class="paging" @on-change="changepage"></Page>
@@ -164,11 +176,17 @@ import * as table from './data/table';
           id_card: '',
           bank_card: '',
           request_no: '',
+          dialogRebackVisible: false,
+          formLabelWidth: '120px',
           dialogVisibleSale: false,
           dialogVisibleUp: false,
           dialogVisibleDown: false,
           dialogVisibleDelete: false,
           createTime: '',
+          form: {
+            money: '',
+            pay_amt: '2',
+          },
           city : [
             {
               value: 'beijing',

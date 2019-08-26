@@ -26,8 +26,10 @@
           <el-input placeholder="请输入手机号" style="width: 180px" @change="handleInput()" v-model="mobile" suffix-icon="el-icon-search" clearable />
           身份证号：
           <el-input placeholder="请输入身份证号" style="width: 180px" @change="handleInput()" v-model="id_card" suffix-icon="el-icon-search" clearable />
-				  <!-- <el-button v-if="isOk"  @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button> -->
+				  <!-- 控制disabled -->
           <el-button :disabled="disabled" @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button>
+          <!-- 控制是否显示 -->
+          <!-- <el-button v-if="isOk"  @click="handleView" type="primary" size="small" style="margin-left: 20px">查询</el-button> -->
         </div>
       </Row>
       <div style="margin-top: 20px">
@@ -168,11 +170,12 @@ import * as table from './data/table';
   export default {
       data () {
         return {
+          disabled: true,
+          isOk: false,
           formInline: {
           mobile: '',
           id_card: '',
           },
-          disabled: true,
           mobile: '',
           id_card: '',
           dialogVisibleSale: false,
@@ -199,7 +202,6 @@ import * as table from './data/table';
 					searchProductName: '',
 					searchCard: '',
 					searchMobile: '',
-					isOk: false,
           // historyColumns: table.historyColumns,
           historyData: [],
           initialProduct: [],
@@ -211,10 +213,6 @@ import * as table from './data/table';
         }
     },
     methods:{
-			getInputValue() {
-        console.log(this.formline.mobile.length)
-				this.formline.mobile.length >=1 ? this.isOk=true : this.isOk = false;
-			},
 			init () {
 				this.historyData = this.initialProduct =  table.customerList;
 				this.status1 = table.status1;
@@ -255,11 +253,10 @@ import * as table from './data/table';
         this.$router.push({ path:'/product/list/productInfo'  })
       },
       handleInput(){
-        this.mobile.length >=1 ? this.isOk=true : this.isOk = false;
-        this.id_card.length >=1 ? this.isOk=true : this.isOk = false;
-
-        this.mobile.length >=1 ? this.disabled=false : this.disabled = true;
-        this.id_card.length >=1 ? this.disabled=false : this.disabled = true;
+        //控制disabled
+        this.mobile.length || this.id_card.length >=1 ? this.disabled=false : this.disabled = true;
+        //控制是否显示
+        this.mobile.length || this.id_card.length >=1 ? this.isOk=true : this.isOk = false;
       }
     },
     created(){

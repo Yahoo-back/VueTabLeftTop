@@ -175,7 +175,7 @@
             width="150">
             <template slot-scope="scope">
               <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
-              <el-button @click="dialogVisibleNo = true" type="text" size="small">禁用</el-button>
+              <el-button @click="dialogVisibleNo = true" type="text" size="small" v-if="scope.row.status == 0">禁用</el-button>
               <el-dialog
                 title="提示"
                 :visible.sync="dialogVisibleNo"
@@ -186,6 +186,19 @@
                 <span slot="footer" class="dialog-footer">
                   <el-button @click="dialogVisibleNo = false">取 消</el-button>
                   <el-button type="primary" @click="dialogVisibleNo = false">确 定</el-button>
+                </span>
+              </el-dialog>
+              <el-button @click="dialogVisibleYes = true" type="text" size="small" v-if="scope.row.status != 0">恢复</el-button>
+              <el-dialog
+                title="提示"
+                :visible.sync="dialogVisibleYes"
+                :append-to-body='true'
+                width="30%"
+                :before-close="handleClose">
+                <span>确定要恢复该用户吗？</span>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisibleYes = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisibleYes = false">确 定</el-button>
                 </span>
               </el-dialog>
             </template>
@@ -243,6 +256,7 @@ import * as table from './data/table';
           id_card: '',
           bank_card: '',
           user_auth: '',
+          dialogVisibleYes: false,
           dialogVisibleNo: false,
           createTime: '',
           rows: [

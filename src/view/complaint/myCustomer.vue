@@ -116,7 +116,7 @@
             width="220">
             <template slot-scope="scope">
               <el-button @click="handleView" type="text" size="small">查看</el-button>
-              <el-button @click="dialogVisibleSale = true" type="text" size="small">取消跟单</el-button>
+              <el-button @click="dialogVisibleSale = true" type="text" size="small" v-if="scope.row.refundstatus == 5">取消跟单</el-button>
               <el-dialog
                 title="提示"
                 :visible.sync="dialogVisibleSale"
@@ -129,8 +129,8 @@
                   <el-button type="primary" @click="dialogVisibleSale = false">确 定</el-button>
                 </span>
               </el-dialog>
-							<el-button @click="handleView" type="text" size="small">退款</el-button>
-							<el-button @click="handleView" type="text" size="small">驳回</el-button>
+							<el-button @click="handleView" type="text" size="small" v-if="scope.row.refundstatus == 5">退款</el-button>
+							<el-button @click="handleView" type="text" size="small" v-if="scope.row.refundstatus == 5">驳回</el-button>
             </template>
           </el-table-column>
         </el-table>

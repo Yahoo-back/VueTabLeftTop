@@ -3,7 +3,10 @@
     // @import './components/table.less';
     .main .single-page-con {
 			background: #fff;
-		}
+    }
+    .el-dialog {
+      width: 60%;
+    }
 </style>
 <template>
   <div id="app">
@@ -82,13 +85,13 @@
         <el-form ref="dataForm" :model="dataForm" label-width="160px">
           <el-row>
             <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
-              <el-form-item label="渠道名：">
+              <el-form-item label="渠道名：" prop="userName">
                 <template v-if="dialogTitle=='查看渠道缩量'">{{dataForm.userName}}</template>
                 <el-input v-else v-model="dataForm.userName" placeholder="渠道名"></el-input>
               </el-form-item>
             </el-col>
             <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
-              <el-form-item label="渠道账号：">
+              <el-form-item label="渠道账号：" prop="userCode">
                 <template v-if="dialogTitle=='查看渠道缩量'">{{dataForm.userCode}}</template>
                 <el-input v-else v-model="dataForm.userCode" placeholder="渠道帐号"></el-input>
               </el-form-item>
@@ -102,7 +105,7 @@
               </el-form-item>
             </el-col>
             <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
-              <el-form-item label="渠道缩量更改时间：">
+              <el-form-item label="渠道缩量更改时间：" prop="update_time">
                 <template v-if="dialogTitle=='查看渠道缩量'">{{dataForm.update_time}}</template>
                 <el-date-picker v-else v-model="dataForm.update_time" type="datetime" placeholder="选择日期时间"></el-date-picker>
                 <!-- <el-input v-else v-model="dataForm.update_time" placeholder="渠道缩量更改时间"></el-input> -->
@@ -145,7 +148,8 @@ import * as table from './data/table';
             }
           ],
           dataForm: {
-            source: '',
+            userName: '',
+            userCode: '',
             sl: '',
             update_time: '',
           },
@@ -221,6 +225,7 @@ import * as table from './data/table';
         this.dataForm.tempRoleIds = []
         this.$refs.dataForm.resetFields()
       },
+      //查看渠道缩量
       handleLook(index, row) {
         this.dialogVisible = true
         this.dialogTitle = '查看渠道缩量'
@@ -239,13 +244,24 @@ import * as table from './data/table';
             }
         }
       },
-      handleEdit(index,row) {
+      //修改
+      handleEdit: function(index, row) {
         this.dialogVisible = true
         this.dialogTitle = '修改渠道缩量'
+        this.dataForm.userName = row.userName
+        this.dataForm.userCode = row.userCode
+        this.dataForm.sl = row.sl
+        this.dataForm.update_time = row.update_time
       },
+
+      //添加
       handleAdd(index,row) {
         this.dialogVisible = true
         this.dialogTitle = '新增渠道缩量'
+        this.dataForm.userName = ''
+        this.dataForm.userCode = ''
+        this.dataForm.sl = ''
+        this.dataForm.update_time = ''
       },
       onDialogSubmit() {
           
