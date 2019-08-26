@@ -134,15 +134,15 @@
           </el-row> 
           <el-row>
             <el-col :xs="12" :sm="12" :md="10" :lg="12" :xl="12">
-              <el-form-item label="金额：" prop="cpa">
+              <el-form-item label="金额：" >
                 <template v-if="dialogTitle=='查看渠道商'">{{dataForm.cpa}}</template>
                 <el-input v-else v-model="dataForm.cpa" placeholder="金额"></el-input>
               </el-form-item>
             </el-col>
             <el-col :xs="12" :sm="12" :md="2" :lg="12" :xl="12">
-              <el-form-item label="CPA：" prop="cpaType">
+              <el-form-item label="CPA：" >
                 <template v-if="dialogTitle=='查看渠道商'">{{dataForm.cpaType}}</template>
-                <el-select v-model="cpaType" placeholder="请选择" style="width:100px">
+                <el-select v-model="dataForm.cpaType" placeholder="请选择" style="width:100px">
                   <el-option  value="">请选择</el-option>
                   <el-option label="uv" value="0">uv</el-option>
                   <el-option label="注册" value="1">注册</el-option>
@@ -292,10 +292,20 @@ import * as table from './data/table';
       handleEdit(index,row) {
         this.dialogVisible = true
         this.dialogTitle = '修改渠道商'
+        this.dataForm.userCode = ''
+        this.dataForm.userName = ''
+        this.dataForm.cpa = ''
+        this.dataForm.cpaType = '1'
+        this.dataForm.loanRate = ''
       },
       handleAdd(index,row) {
         this.dialogVisible = true
         this.dialogTitle = '新增渠道商'
+         this.dataForm.userCode = ''
+        this.dataForm.userName = ''
+        this.dataForm.cpa = ''
+        this.dataForm.cpaType = ''
+        this.dataForm.loanRate = ''
       },
       onDialogSubmit() {
           
