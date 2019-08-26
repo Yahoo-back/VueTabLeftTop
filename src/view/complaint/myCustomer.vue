@@ -129,8 +129,8 @@
                   <el-button type="primary" @click="dialogVisibleSale = false">确 定</el-button>
                 </span>
               </el-dialog>
-							<el-button @click="handleView" type="text" size="small" v-if="scope.row.refundstatus == 5">退款</el-button>
-							<el-button @click="handleView" type="text" size="small" v-if="scope.row.refundstatus == 5">驳回</el-button>
+							<el-button @click="handleReback" type="text" size="small" v-if="scope.row.refundstatus == 5">退款</el-button>
+							<el-button @click="handleRefuse" type="text" size="small" v-if="scope.row.refundstatus == 5">驳回</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -238,6 +238,12 @@ import * as table from './data/table';
       },
       handleView() {
         this.$router.push({ path:'/complaint/myCustomer/myCustomerInfo'  })
+      },
+      handleReback() {
+        this.$router.push({ path:'/complaint/myCustomer/myReback'  })
+      },
+      handleRefuse() {
+        this.$router.push({ path:'/complaint/myCustomer/myRefuse'  })
       }
     },
     created(){

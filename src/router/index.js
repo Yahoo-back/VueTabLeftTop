@@ -148,6 +148,22 @@ export const routerInfo = [
     hidden: true,
     children: [{path: 'eRebackInfo', title: 'eRebackInfo', name: 'eRebackInfo', component: _import('complaint/eRebackInfo')}]
   },
+  //客诉我的客户列表退款
+  {
+    path: '/complaint/myCustomer/',
+    component: Layout,
+    name: 'myReback',
+    hidden: true,
+    children: [{path: 'myReback', title: 'myReback', name: 'myReback', component: _import('complaint/myReback')}]
+  },
+  //客诉我的客户列表驳回
+  {
+    path: '/complaint/myCustomer/',
+    component: Layout,
+    name: 'myRefuse',
+    hidden: true,
+    children: [{path: 'myRefuse', title: 'myRefuse', name: 'myRefuse', component: _import('complaint/myRefuse')}]
+  },
 ];
 /**
  * 初始化路由
