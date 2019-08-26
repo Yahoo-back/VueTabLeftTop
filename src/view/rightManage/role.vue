@@ -224,10 +224,14 @@ import * as table from './data/table';
       handleEdit(index,row) {
         this.dialogVisible = true
         this.dialogTitle = '修改'
+        this.dataForm.roleCode = row.roleCode
+        this.dataForm.roleName = row.roleName
       },
       handleAdd(index,row){
         this.dialogVisible = true
         this.dialogTitle = '新增'
+        this.dataForm.roleCode = ''
+        this.dataForm.roleName = ''
       },
       onDialogSubmit() {
           

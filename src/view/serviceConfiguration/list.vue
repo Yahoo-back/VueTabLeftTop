@@ -220,6 +220,9 @@ import * as table from './data/table';
         handleEdit(index,row) {
           this.dialogVisible = true
           this.dialogTitle = '编辑'
+          this.dataForm.dictDesc = row.dictDesc
+          this.dataForm.itemKey = row.itemKey
+          this.dataForm.itemValue = row.itemValue
         },
         onDialogSubmit() {
           
