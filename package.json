@@ -14,7 +14,7 @@
     "axios": "0.16.2",
     "echarts": "^4.0.4",
     "iview": "^2.5.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "js-cookie": "2.1.4",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
